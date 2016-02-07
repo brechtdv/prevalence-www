@@ -1,0 +1,159 @@
+<h2 id="calculate-confidence-intervals-for-prevalences-and-other-proportions">Calculate confidence intervals for prevalences and other proportions</h2>
+<h3 id="description">Description</h3>
+<p>The <code>propCI</code> function calculates five types of confidence intervals for proportions:</p>
+<ul>
+<li>Wald interval (= Normal approximation interval, asymptotic interval)</li>
+<li>Agresti-Coull interval (= adjusted Wald interval)</li>
+<li>Exact interval (= Clopper-Pearson interval)</li>
+<li>Jeffreys interval (= Bayesian interval)</li>
+<li>Wilson score interval</li>
+</ul>
+<h3 id="usage">Usage</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">propCI</span>(x, n, <span class="dt">method =</span> <span class="st">&quot;all&quot;</span>, <span class="dt">level =</span> <span class="fl">0.95</span>, <span class="dt">sortby =</span> <span class="st">&quot;level&quot;</span>)</code></pre></div>
+<h3 id="arguments">Arguments</h3>
+<table>
+<tr>
+<td>
+<code>x</code>
+</td>
+<td>
+Number of successes (positive samples)
+</td>
+</tr>
+<tr>
+<td>
+<code>n</code>
+</td>
+<td>
+Number of trials (sample size)
+</td>
+</tr>
+<tr>
+<td>
+<code>method</code>
+</td>
+<td>
+Confidence interval calculation method; see details
+</td>
+</tr>
+<tr>
+<td>
+<code>level</code>
+</td>
+<td>
+Confidence level for confidence intervals
+</td>
+</tr>
+<tr>
+<td>
+<code>sortby</code>
+</td>
+<td>
+Sort results by <code>&quot;level&quot;</code> or <code>&quot;method&quot;</code>
+</td>
+</tr>
+</table>
+<h3 id="details">Details</h3>
+<p>Five methods are available for calculating confidence intervals. For convenience, synonyms are allowed.</p>
+<p><code>&quot;agresti.coull&quot;, &quot;agresti-coull&quot;, &quot;ac&quot;</code></p>
+<p><span class="math display">\[
+\tilde{n} = n + z_{1-\frac{\alpha}{2}}^2
+\tilde{p} = \frac{1}{\tilde{n}}(x + \frac{1}{2} z_{1-\frac{\alpha}{2}}^2)
+\tilde{p} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1-\tilde{p})}{\tilde{n}}}
+\]</span></p>
+<p><code>&quot;exact&quot;, &quot;clopper-pearson&quot;, &quot;cp&quot;</code></p>
+<p><span class="math display">\[
+(Beta(\frac{\alpha}{2}; x, n - x + 1), Beta(1 - \frac{\alpha}{2}; x + 1, n - x))
+\]</span></p>
+<p><code>&quot;jeffreys&quot;, &quot;bayes&quot;</code></p>
+<p><span class="math display">\[
+(Beta(\frac{\alpha}{2}; x + 0.5, n - x + 0.5), Beta(1 - \frac{\alpha}{2}; x + 0.5, n - x + 0.5))
+\]</span></p>
+<p><code>&quot;wald&quot;, &quot;asymptotic&quot;, &quot;normal&quot;</code></p>
+<p><span class="math display">\[
+p \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n}}
+\]</span></p>
+<p><code>&quot;wilson&quot;</code></p>
+<p><span class="math display">\[
+\frac{p + \frac{z_{1-\frac{\alpha}{2}}^2}{2n} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n} + \frac{z_{1-\frac{\alpha}{2}}^2}{4n^2}}}{1 + \frac{z_{1-\frac{\alpha}{2}}^2}{n}}
+\]</span></p>
+<h3 id="value">Value</h3>
+<p>Data frame with seven columns:</p>
+<table>
+<tr>
+<td>
+<code>x</code>
+</td>
+<td>
+Number of successes (positive samples)
+</td>
+</tr>
+<tr>
+<td>
+<code>n</code>
+</td>
+<td>
+Number of trials (sample size)
+</td>
+</tr>
+<tr>
+<td>
+<code>p</code>
+</td>
+<td>
+Proportion of successes (prevalence)
+</td>
+</tr>
+<tr>
+<td>
+<code>method</code>
+</td>
+<td>
+Confidence interval calculation method
+</td>
+</tr>
+<tr>
+<td>
+<code>level</code>
+</td>
+<td>
+Confidence level
+</td>
+</tr>
+<tr>
+<td>
+<code>lower</code>
+</td>
+<td>
+Lower confidence limit
+</td>
+</tr>
+<tr>
+<td>
+<code>upper</code>
+</td>
+<td>
+Upper confidence limit
+</td>
+</tr>
+</table>
+<h3 id="note">Note</h3>
+<p>In case the observed prevalence equals 0% (ie, <code>x == 0</code>), an upper one-sided confidence interval is returned. In case the observed prevalence equals 100% (ie, <code>x == n</code>), a lower one-sided confidence interval is returned. In all other cases, two-sided confidence intervals are returned. Examples</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## All methods, 95% confidence intervals
+<span class="kw">propCI</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>)
+<span class="co">#&gt;     x   n         p        method level     lower     upper</span>
+<span class="co">#&gt; 1 142 742 0.1913747 agresti.coull  0.95 0.1646432 0.2212853</span>
+<span class="co">#&gt; 2 142 742 0.1913747         exact  0.95 0.1636684 0.2215588</span>
+<span class="co">#&gt; 3 142 742 0.1913747      jeffreys  0.95 0.1643017 0.2208498</span>
+<span class="co">#&gt; 4 142 742 0.1913747          wald  0.95 0.1630697 0.2196796</span>
+<span class="co">#&gt; 5 142 742 0.1913747        wilson  0.95 0.1646876 0.2212409</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Wald-type 90%, 95% and 99% confidence intervals
+<span class="kw">propCI</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>, <span class="dt">method =</span> <span class="st">&quot;wald&quot;</span>, <span class="dt">level =</span> <span class="kw">c</span>(<span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>))
+<span class="co">#&gt;     x   n         p method level     lower     upper</span>
+<span class="co">#&gt; 1 142 742 0.1913747   wald  0.90 0.1676204 0.2151289</span>
+<span class="co">#&gt; 2 142 742 0.1913747   wald  0.95 0.1630697 0.2196796</span>
+<span class="co">#&gt; 3 142 742 0.1913747   wald  0.99 0.1541757 0.2285736</span></code></pre></div>
+<br>
+<p id="footer">
+Page last modified: Sat, 06 Feb 2016. <a href="https://github.com/brechtdv/prevalence-www">View Rmarkdown source code on GitHub</a>.
+</p>
