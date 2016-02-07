@@ -37,7 +37,7 @@ propCI(x, n, method = "all", level = 0.95, sortby = "level")
  </tr>
  <tr>
   <td>`method`</td>
-  <td>Confidence interval calculation method; see details</td>
+  <td>Confidence interval calculation method; see [details](#Details)</td>
  </tr>
  <tr>
   <td>`level`</td>
