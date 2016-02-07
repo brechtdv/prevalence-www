@@ -33,7 +33,7 @@ truePrev(x, n, SE = 1, SP = 1, prior = c(1, 1),
  </tr>
  <tr>
   <td>`SE, SP`</td>
-  <td>The prior distribution for sensitivity (SE) and specificity (SP); see [details](#Details) for specification of these distributions</td>
+  <td>The prior distribution for sensitivity (SE) and specificity (SP); see [details](#details) for specification of these distributions</td>
  </tr>
  <tr>
   <td>`prior`</td>
@@ -65,8 +65,8 @@ truePrev(x, n, SE = 1, SP = 1, prior = c(1, 1),
 model {
   x ~ dbin(AP, n)
   AP <- SE * TP + (1 - SP) * (1 - TP)
-  # SE ~ user-defined (see [here](?main=docs&sub=distributions))
-  # SP ~ user-defined (see [here](?main=docs&sub=distributions))
+  # SE ~ user-defined
+  # SP ~ user-defined
   TP ~ dbeta(prior[1], prior[2])
 }
 ```
