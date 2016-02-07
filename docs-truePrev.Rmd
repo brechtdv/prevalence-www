@@ -77,11 +77,11 @@ More info on specifying distributions is available [here](?main=docs&sub=distrib
 
 ### Value
 
-An object of class [`prev`](?main=docs&sub=prev-class).
+A `r doc("prev-class")` object.
 
 ### Note
 
-Markov chain Monte Carlo sampling in truePrev is performed by [**JAGS**](http://mcmc-jags.sourceforge.net/) (Just Another Gibbs Sampler) through the [**rjags**](https://cran.r-project.org/package=rjags) package. JAGS can be downloaded from http://sourceforge.net/projects/mcmc-jags/. 
+Markov chain Monte Carlo sampling in `truePrev` is performed by [**JAGS**](http://mcmc-jags.sourceforge.net/) (Just Another Gibbs Sampler) through the [**rjags**](https://cran.r-project.org/package=rjags) package. JAGS can be downloaded from http://sourceforge.net/projects/mcmc-jags/.
 
 ### References
 
@@ -91,6 +91,16 @@ Markov chain Monte Carlo sampling in truePrev is performed by [**JAGS**](http://
 ### See also
 
 [**coda**](https://cran.r-project.org/package=coda) for various functions that can be applied to the `prev@mcmc` object
+
+`r doc("truePrevPools")`: estimate true prevalence from apparent prevalence obtained by testing _pooled_ samples with a single test
+
+`r doc("truePrevMulti")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a conditional probability scheme
+
+`r doc("truePrevMulti2")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a covariance scheme
+
+`r doc("betaPERT")`: calculate the parameters of a Beta-PERT distribution
+
+`r doc("betaExpert")`: calculate the parameters of a Beta distribution based on expert opinion
 
 ### Examples
 
