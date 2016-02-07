@@ -6,7 +6,7 @@ output: bd::html_body
 source("preamble.R")
 ```
 
-## **prevalence** `r pkg` / documentation
+## **prevalence** `r pkg` / functions
 
 <br>The **prevalence** package provides Frequentist and Bayesian methods useful in prevalence assessment studies. Several methods are available for estimating True Prevalence (TP) from Apparent Prevalence (AP).
 
@@ -40,19 +40,6 @@ source("preamble.R")
  <tr valign="top">
   <td>[`betaExpert`](?main=docs&sub=betaExpert)<td>
   <td>Calculate the parameters of a Beta distribution based on expert opinion</td>
- </tr>
-</table>
-
-### Help files
-
-<table>
- <tr valign="top">
-  <td>[`distributions`](?main=docs&sub=distributions)<td>
-  <td>Specifying distributions for priors and external information</td>
- </tr>
- <tr valign="top">
-  <td>[`prev-class`](?main=docs&sub=prev-class)<td>
-  <td>Definition and methods for objects of class `prev`</td>
  </tr>
 </table>
 
