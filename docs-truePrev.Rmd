@@ -77,7 +77,7 @@ More info on specifying distributions is available [here](?main=docs&sub=distrib
 
 ### Value
 
-A `r doc("prev-class")` object.
+A `r doc_help("prev-class")` object.
 
 ### Note
 
@@ -92,15 +92,15 @@ Markov chain Monte Carlo sampling in `truePrev` is performed by [**JAGS**](http:
 
 [**coda**](https://cran.r-project.org/package=coda) for various functions that can be applied to the `prev@mcmc` object
 
-`r doc("truePrevPools")`: estimate true prevalence from apparent prevalence obtained by testing _pooled_ samples with a single test
+`r doc_fun("truePrevPools")`: estimate true prevalence from apparent prevalence obtained by testing _pooled_ samples with a single test
 
-`r doc("truePrevMulti")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a conditional probability scheme
+`r doc_fun("truePrevMulti")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a conditional probability scheme
 
-`r doc("truePrevMulti2")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a covariance scheme
+`r doc_fun("truePrevMulti2")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a covariance scheme
 
-`r doc("betaPERT")`: calculate the parameters of a Beta-PERT distribution
+`r doc_fun("betaPERT")`: calculate the parameters of a Beta-PERT distribution
 
-`r doc("betaExpert")`: calculate the parameters of a Beta distribution based on expert opinion
+`r doc_fun("betaExpert")`: calculate the parameters of a Beta distribution based on expert opinion
 
 ### Examples
 

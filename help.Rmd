@@ -10,11 +10,11 @@ source("preamble.R")
 
 <br><table>
  <tr valign="top">
-  <td>[`distributions`](?main=docs&sub=distributions)<td>
+  <td>`r doc_help("distributions")`<td>
   <td>Specifying distributions for priors and external information</td>
  </tr>
  <tr valign="top">
-  <td>[`prev-class`](?main=docs&sub=prev-class)<td>
+  <td>`r doc_help("prev-class")`<td>
   <td>Definition and methods for objects of class `prev`</td>
  </tr>
 </table>

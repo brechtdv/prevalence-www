@@ -75,7 +75,7 @@ Logical flag, indicating if JAGS process output should be printed to the R conso
 </tbody>
 </table>
 <h3 id="details">Details</h3>
-<p><code>truePrevPools</code> calls on <a href="http://mcmc-jags.sourceforge.net/"><strong>JAGS</strong></a> via <a href="https://cran.r-project.org/package=rjags"><strong>rjags</strong></a> to estimate the true prevalence from the apparent prevalence in a Bayesian framework. The default model, in BUGS language, is given below. To see the actual fitted model, see the model slot of the <a href="?main=docs&amp;sub=prev-class"><code>prev-class</code></a> object.</p>
+<p><code>truePrevPools</code> calls on <a href="http://mcmc-jags.sourceforge.net/"><strong>JAGS</strong></a> via <a href="https://cran.r-project.org/package=rjags"><strong>rjags</strong></a> to estimate the true prevalence from the apparent prevalence in a Bayesian framework. The default model, in BUGS language, is given below. To see the actual fitted model, see the model slot of the <a href="?main=help&amp;sub=prev-class"><code>prev-class</code></a> object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model {
     for (i in <span class="dv">1</span>:N) {
       x[i] ~<span class="st"> </span><span class="kw">dbern</span>(AP[i])
@@ -97,13 +97,13 @@ Logical flag, indicating if JAGS process output should be printed to the R conso
 <code>'method'</code> must be <code>&quot;classic&quot;</code> or <code>&quot;vose&quot;</code>;<br />
 <code>'a'</code> denotes the pessimistic (minimum) estimate, <code>'m'</code> the most likely estimate, and <code>'b'</code> the optimistic (maximum) estimate;<br />
 <code>'k'</code> denotes the scale parameter.<br />
-See <a href="?main=docs&amp;sub=betaPERT"><code>betaPERT</code></a> for more information on Beta-PERT parametrization.</p></li>
+See <a href="?main=functions&amp;sub=betaPERT"><code>betaPERT</code></a> for more information on Beta-PERT parametrization.</p></li>
 <li><p><strong>Beta-Expert:</strong> <code>list(dist = &quot;beta-expert&quot;, mode, mean, lower, upper, p)</code><br />
 <code>'mode'</code> denotes the most likely estimate, <code>'mean'</code> the mean estimate;<br />
 <code>'lower'</code> denotes the lower bound, <code>'upper'</code> the upper bound;<br />
 <code>'p'</code> denotes the confidence level of the expert.<br />
 Only <code>mode</code> or <code>mean</code> should be specified; <code>lower</code> and <code>upper</code> can be specified together or alone.<br />
-See <a href="?main=docs&amp;sub=betaExpert"><code>betaExpert</code></a> for more information on Beta-Expert parameterization.</p></li>
+See <a href="?main=functions&amp;sub=betaExpert"><code>betaExpert</code></a> for more information on Beta-Expert parameterization.</p></li>
 </ul>
 <p>For Uniform, Beta and Beta-PERT distributions, BUGS-style short-hand notation is also allowed:</p>
 <ul>
@@ -112,7 +112,7 @@ See <a href="?main=docs&amp;sub=betaExpert"><code>betaExpert</code></a> for more
 <li><p><strong>Beta-PERT:</strong> <code>~dpert(min, mode, max)</code></p></li>
 </ul>
 <h3 id="value">Value</h3>
-<p>An object of class <a href="?main=docs&amp;sub=prev-class"><code>prev-class</code></a>.</p>
+<p>An object of class <a href="?main=help&amp;sub=prev-class"><code>prev-class</code></a>.</p>
 <h3 id="note">Note</h3>
 <p>Markov chain Monte Carlo sampling in <code>truePrev</code> is performed by <a href="http://mcmc-jags.sourceforge.net/"><strong>JAGS</strong></a> (Just Another Gibbs Sampler) through the <a href="https://cran.r-project.org/package=rjags"><strong>rjags</strong></a> package. JAGS can be downloaded from <a href="http://sourceforge.net/projects/mcmc-jags/" class="uri">http://sourceforge.net/projects/mcmc-jags/</a>.</p>
 <h3 id="references">References</h3>
@@ -122,11 +122,11 @@ See <a href="?main=docs&amp;sub=betaExpert"><code>betaExpert</code></a> for more
 </ul>
 <h3 id="see-also">See Also</h3>
 <p><a href="https://cran.r-project.org/package=coda"><strong>coda</strong></a> for various functions that can be applied to the <code>prev@mcmc</code> object</p>
-<p><a href="?main=docs&amp;sub=truePrev"><code>truePrev</code></a>: estimate true prevalence from apparent prevalence obtained by testing <em>individual</em> samples with a single test</p>
-<p><a href="?main=docs&amp;sub=truePrevMulti"><code>truePrevMulti</code></a>: estimate true prevalence from apparent prevalence obtained by testing <em>individual</em> samples with multiple tests, using a conditional probability scheme</p>
-<p><a href="?main=docs&amp;sub=truePrevMulti2"><code>truePrevMulti2</code></a>: estimate true prevalence from apparent prevalence obtained by testing <em>individual</em> samples with multiple tests, using a covariance scheme</p>
-<p><a href="?main=docs&amp;sub=betaPERT"><code>betaPERT</code></a>: calculate the parameters of a Beta-PERT distribution</p>
-<p><a href="?main=docs&amp;sub=betaExpert"><code>betaExpert</code></a>: calculate the parameters of a Beta distribution based on expert opinion</p>
+<p><a href="?main=functions&amp;sub=truePrev"><code>truePrev</code></a>: estimate true prevalence from apparent prevalence obtained by testing <em>individual</em> samples with a single test</p>
+<p><a href="?main=functions&amp;sub=truePrevMulti"><code>truePrevMulti</code></a>: estimate true prevalence from apparent prevalence obtained by testing <em>individual</em> samples with multiple tests, using a conditional probability scheme</p>
+<p><a href="?main=functions&amp;sub=truePrevMulti2"><code>truePrevMulti2</code></a>: estimate true prevalence from apparent prevalence obtained by testing <em>individual</em> samples with multiple tests, using a covariance scheme</p>
+<p><a href="?main=functions&amp;sub=betaPERT"><code>betaPERT</code></a>: calculate the parameters of a Beta-PERT distribution</p>
+<p><a href="?main=functions&amp;sub=betaExpert"><code>betaExpert</code></a>: calculate the parameters of a Beta distribution based on expert opinion</p>
 <h3 id="examples">Examples</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Sandflies in Aurabani, Nepal, 2007
 pool_results &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)
@@ -137,9 +137,9 @@ pool_sizes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
 <span class="kw">truePrevPools</span>(<span class="dt">x =</span> pool_results, <span class="dt">n =</span> pool_sizes,
               <span class="dt">SE =</span> ~<span class="kw">dunif</span>(<span class="fl">0.60</span>, <span class="fl">0.95</span>), <span class="dt">SP =</span> <span class="dv">1</span>)
 <span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.100  0.092 0.074 0.051 0.025  0.22</span>
-<span class="co">#&gt; SE 0.764  0.759 0.630 0.102 0.607  0.94</span>
-<span class="co">#&gt; SP 1.000  1.000 1.000 0.000 1.000  1.00</span>
+<span class="co">#&gt; TP 0.100  0.093 0.083 0.050 0.025 0.218</span>
+<span class="co">#&gt; SE 0.764  0.759 0.630 0.101 0.607 0.941</span>
+<span class="co">#&gt; SP 1.000  1.000 1.000 0.000 1.000 1.000</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Multivariate BGR statistic = 1</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
@@ -148,11 +148,11 @@ SE &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">d
 <span class="kw">truePrevPools</span>(<span class="dt">x =</span> pool_results, <span class="dt">n =</span> pool_sizes,
               <span class="dt">SE =</span> SE, <span class="dt">SP =</span> <span class="dv">1</span>)
 <span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.100  0.092 0.071 0.050 0.025 0.219</span>
-<span class="co">#&gt; SE 0.766  0.760 0.630 0.102 0.607 0.940</span>
+<span class="co">#&gt; TP 0.099  0.092 0.079 0.050 0.025 0.217</span>
+<span class="co">#&gt; SE 0.765  0.760 0.633 0.101 0.607 0.940</span>
 <span class="co">#&gt; SP 1.000  1.000 1.000 0.000 1.000 1.000</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Multivariate BGR statistic = 1.0003</span>
+<span class="co">#&gt; Multivariate BGR statistic = 1.0001</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
 <br>
 <p id="footer">

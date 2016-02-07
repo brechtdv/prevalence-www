@@ -20,7 +20,12 @@ percent <-
   }
 
 ## create documentation link
-doc <-
+doc_fun <-
   function(x) {
-    sprintf("[`%1$s`](?main=docs&sub=%1$s)", x)
+    sprintf("[`%1$s`](?main=functions&sub=%1$s)", x)
+  }
+
+doc_help <-
+  function(x) {
+    sprintf("[`%1$s`](?main=help&sub=%1$s)", x)
   }

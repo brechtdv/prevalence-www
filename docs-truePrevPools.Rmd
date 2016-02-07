@@ -61,7 +61,7 @@ truePrevPools(x, n, SE = 1, SP = 1, prior = c(1, 1),
 
 ### Details
 
-`truePrevPools` calls on [**JAGS**](http://mcmc-jags.sourceforge.net/) via [**rjags**](https://cran.r-project.org/package=rjags) to estimate the true prevalence from the apparent prevalence in a Bayesian framework. The default model, in BUGS language, is given below. To see the actual fitted model, see the model slot of the `r doc("prev-class")` object.
+`truePrevPools` calls on [**JAGS**](http://mcmc-jags.sourceforge.net/) via [**rjags**](https://cran.r-project.org/package=rjags) to estimate the true prevalence from the apparent prevalence in a Bayesian framework. The default model, in BUGS language, is given below. To see the actual fitted model, see the model slot of the `r doc_help("prev-class")` object.
 
 ```{r, eval=FALSE}
 model {
@@ -91,14 +91,14 @@ Distribution parameters can be specified in a _named_ `list()` as follows:
     `'method'` must be `"classic"` or `"vose"`;  
     `'a'` denotes the pessimistic (minimum) estimate, `'m'` the most likely estimate, and `'b'` the optimistic (maximum) estimate;  
     `'k'` denotes the scale parameter.  
-    See `r doc("betaPERT")` for more information on Beta-PERT parametrization.
+    See `r doc_fun("betaPERT")` for more information on Beta-PERT parametrization.
 
 *   **Beta-Expert:** `list(dist = "beta-expert", mode, mean, lower, upper, p)`  
     `'mode'` denotes the most likely estimate, `'mean'` the mean estimate;  
     `'lower'` denotes the lower bound, `'upper'` the upper bound;  
     `'p'` denotes the confidence level of the expert.  
     Only `mode` or `mean` should be specified; `lower` and `upper` can be specified together or alone.  
-    See `r doc("betaExpert")` for more information on Beta-Expert parameterization.
+    See `r doc_fun("betaExpert")` for more information on Beta-Expert parameterization.
 
 For Uniform, Beta and Beta-PERT distributions, BUGS-style short-hand notation is also allowed:
 
@@ -110,7 +110,7 @@ For Uniform, Beta and Beta-PERT distributions, BUGS-style short-hand notation is
 
 ### Value
 
-An object of class `r doc("prev-class")`.
+An object of class `r doc_help("prev-class")`.
 
 ### Note
 
@@ -126,15 +126,15 @@ Markov chain Monte Carlo sampling in `truePrev` is performed by [**JAGS**](http:
 
 [**coda**](https://cran.r-project.org/package=coda) for various functions that can be applied to the `prev@mcmc` object
 
-`r doc("truePrev")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with a single test
+`r doc_fun("truePrev")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with a single test
 
-`r doc("truePrevMulti")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a conditional probability scheme
+`r doc_fun("truePrevMulti")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a conditional probability scheme
 
-`r doc("truePrevMulti2")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a covariance scheme
+`r doc_fun("truePrevMulti2")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a covariance scheme
 
-`r doc("betaPERT")`: calculate the parameters of a Beta-PERT distribution
+`r doc_fun("betaPERT")`: calculate the parameters of a Beta-PERT distribution
 
-`r doc("betaExpert")`: calculate the parameters of a Beta distribution based on expert opinion
+`r doc_fun("betaExpert")`: calculate the parameters of a Beta distribution based on expert opinion
 
 ### Examples
 
