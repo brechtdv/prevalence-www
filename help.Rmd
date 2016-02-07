@@ -8,7 +8,7 @@ source("preamble.R")
 
 ## **prevalence** `r pkg` / help
 
-<table>
+<br><table>
  <tr valign="top">
   <td>[`distributions`](?main=docs&sub=distributions)<td>
   <td>Specifying distributions for priors and external information</td>
