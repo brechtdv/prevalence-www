@@ -1,0 +1,140 @@
+---
+output: bd::html_body
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("preamble.R")
+```
+
+## Estimate true prevalence from individuals samples
+
+### Description
+
+Bayesian estimation of true prevalence from apparent prevalence obtained by testing individual samples.
+
+### Usage
+
+```{r, eval=FALSE}
+truePrev(x, n, SE = 1, SP = 1, prior = c(1, 1),
+         nchains = 2, burnin = 10000, update = 10000,
+         verbose = FALSE)
+```
+
+### Arguments
+
+<table>
+ <tr>
+  <td>`x`</td>
+  <td>The apparent number of positive samples</td>
+ </tr>
+ <tr>
+  <td>`n`</td>
+  <td>The sample size</td>
+ </tr>
+ <tr>
+  <td>`SE, SP`</td>
+  <td>The prior distribution for sensitivity (SE) and specificity (SP); see [Details](#Details) below for specification of these distributions</td>
+ </tr>
+ <tr>
+  <td>`prior`</td>
+  <td>The parameters of the prior Beta distribution for true prevalence; defaults to `c(1, 1)`</td>
+ </tr>
+ <tr>
+  <td>`nchains`</td>
+  <td>The number of chains used in the estimation process; must be \le 2</td>
+ </tr>
+ <tr>
+  <td>`burnin`</td>
+  <td>The number of discarded model iterations; defaults to 10,000</td>
+ </tr>
+ <tr>
+  <td>`update`</td>
+  <td>The number of withheld model iterations; defaults to 10,000</td>
+ </tr>
+ <tr>
+  <td>`verbose`</td>
+  <td>Logical flag, indicating if JAGS process output should be printed to the R console; defaults to `FALSE`</td>
+ </tr>
+</table>
+
+### Details
+
+`truePrev` calls on **JAGS** via the **rjags** package to estimate the true prevalence from the apparent prevalence in a Bayesian framework. The default model, in BUGS language, is given below. To see the actual fitted model, see the model slot of the `prev`-object.
+
+```{r, eval=FALSE}
+model {
+  x ~ dbin(AP, n)
+  AP <- SE * TP + (1 - SP) * (1 - TP)
+  # SE ~ user-defined (see here)
+  # SP ~ user-defined (see here)
+  TP ~ dbeta(prior[1], prior[2])
+}
+```
+
+The test sensitivity (`SE`) and specificity (`SP`) can be specified, independently, as one of `fixed` (default), `uniform`, `beta`, `pert`, or `beta-expert`.
+
+More info on specifying distributions is available [here]().
+
+### Value
+
+An object of class `prev`.
+
+### Note
+
+Markov chain Monte Carlo sampling in truePrev is performed by JAGS (Just Another Gibbs Sampler) through the rjags package. JAGS can be downloaded from http://sourceforge.net/projects/mcmc-jags/. 
+
+### References
+
+* Speybroeck N, Devleesschauwer B, Joseph L, Berkvens D (2013) Misclassification errors in prevalence estimation: Bayesian handling with care. _Int J Public Health_ **58**:791-795
+* Online Shiny application: http://prevalence.cbra.be/truePrev
+
+### See also
+
+**coda** for various functions that can be applied to the `prev@mcmc` object
+
+### Examples
+
+```{r}
+## Taenia solium cysticercosis in Nepal
+## 142 positives out of 742 pigs sampled
+```
+
+```{r}
+## Model SE and SP based on literature data
+## Sensitivity ranges uniformly between 60% and 100%
+## Specificity ranges uniformly between 75% and 100%
+```
+
+```{r}
+#> BUGS-style:
+truePrev(x = 142, n = 742,
+         SE = ~dunif(0.60, 1.00), SP = ~dunif(0.75, 1.00))
+```
+
+```{r}
+#> list-style:
+SE <- list(dist = "uniform", min = 0.60, max = 1.00)
+SP <- list(dist = "uniform", min = 0.75, max = 1.00)
+truePrev(x = 142, n = 742, SE = SE, SP = SP)
+```
+
+```{r}
+## Model SE and SP based on expert opinions
+## Sensitivity lies in between 60% and 100%; most likely value is 90%
+## Specificity is with 95% confidence larger than 75%; most likely value is 90%
+SE <- list(dist = "pert", a = 0.60, m = 0.90, b = 1.00)
+SP <- list(dist = "beta-expert", mode = 0.90, lower = 0.75, p = 0.95)
+truePrev(x = 142, n = 742, SE = SE, SP = SP)
+```
+
+```{r}
+## Model SE and SP as fixed values (each 90%)
+truePrev(x = 142, n = 742, SE = 0.90, SP = 0.90)
+```
+
+### Tutorials
+
+* [Estimating true prevalence based on a single test](?main=tutorials)
+
+```{r child="footer.Rmd"}
+```
