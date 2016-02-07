@@ -1,0 +1,9 @@
+```{r, echo=FALSE, include=FALSE}
+Sys.setlocale("LC_TIME", "English_United States")
+```
+
+<br>
+<p id="footer">
+Page last modified: `r format(Sys.Date(), "%a, %d %b %Y")`.
+<a href="https://github.com/brechtdv/prevalence-www">View Rmarkdown source code on GitHub</a>.
+</p>

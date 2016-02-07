@@ -1,0 +1,59 @@
+<h2 id="prevalence-0.4.0-download-installation"><strong>prevalence</strong> 0.4.0 / download &amp; installation</h2>
+<p><br>The <strong>prevalence</strong> package provides Frequentist and Bayesian methods useful in prevalence assessment studies. Several methods are available for estimating True Prevalence (TP) from Apparent Prevalence (AP).</p>
+<p>Version 0.4.0 of the <strong>prevalence</strong> package is <a href="https://cran.r-project.org/package=prevalence">available on CRAN</a>. Source code of the development version is <a href="https://github.com/brechtdv/prevalence">on GitHub</a>.</p>
+<p>This is how you can install the prevalence package in <strong>R</strong>:</p>
+<ul>
+<li>download and install the latest version of <strong>R</strong> via <a href="https://cran.r-project.org/">cran.r-project.org</a></li>
+<li>download and install <strong>JAGS</strong> via <a href="http://mcmc-jags.sourceforge.net/">mcmc-jags.sourceforge.net</a></li>
+<li>download and install the <strong>prevalence</strong> package via</li>
+</ul>
+<ul>
+<li style="list-style-type: none;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;prevalence&quot;</span>)</code></pre></div>
+</li>
+</ul>
+<p>Finally, to attach <strong>prevalence</strong> to your <strong>R</strong> session, simply run</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(prevalence)</code></pre></div>
+<h3 id="package-description">Package description</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">packageDescription</span>(<span class="st">&quot;prevalence&quot;</span>)
+<span class="co">#&gt; Package: prevalence</span>
+<span class="co">#&gt; Type: Package</span>
+<span class="co">#&gt; Title: Tools for Prevalence Assessment Studies</span>
+<span class="co">#&gt; Version: 0.4.0</span>
+<span class="co">#&gt; Date: 2015-04-20</span>
+<span class="co">#&gt; Authors@R: c(person(&quot;Brecht&quot;, &quot;Devleesschauwer&quot;, role = c(&quot;aut&quot;,</span>
+<span class="co">#&gt;        &quot;cre&quot;), email = &quot;brechtdv@gmail.com&quot;), person(&quot;Paul&quot;,</span>
+<span class="co">#&gt;        &quot;Torgerson&quot;, role = &quot;aut&quot;), person(&quot;Johannes&quot;, &quot;Charlier&quot;,</span>
+<span class="co">#&gt;        role = &quot;aut&quot;), person(&quot;Bruno&quot;, &quot;Levecke&quot;, role = &quot;aut&quot;),</span>
+<span class="co">#&gt;        person(&quot;Nicolas&quot;, &quot;Praet&quot;, role = &quot;aut&quot;), person(&quot;Sophie&quot;,</span>
+<span class="co">#&gt;        &quot;Roelandt&quot;, role = &quot;aut&quot;), person(&quot;Suzanne&quot;, &quot;Smit&quot;, role =</span>
+<span class="co">#&gt;        &quot;aut&quot;), person(&quot;Pierre&quot;, &quot;Dorny&quot;, role = &quot;aut&quot;),</span>
+<span class="co">#&gt;        person(&quot;Dirk&quot;, &quot;Berkvens&quot;, role = &quot;aut&quot;), person(&quot;Niko&quot;,</span>
+<span class="co">#&gt;        &quot;Speybroeck&quot;, role = &quot;aut&quot;))</span>
+<span class="co">#&gt; Author: Brecht Devleesschauwer [aut, cre], Paul Torgerson [aut],</span>
+<span class="co">#&gt;        Johannes Charlier [aut], Bruno Levecke [aut], Nicolas Praet</span>
+<span class="co">#&gt;        [aut], Sophie Roelandt [aut], Suzanne Smit [aut], Pierre</span>
+<span class="co">#&gt;        Dorny [aut], Dirk Berkvens [aut], Niko Speybroeck [aut]</span>
+<span class="co">#&gt; Maintainer: Brecht Devleesschauwer &lt;brechtdv@gmail.com&gt;</span>
+<span class="co">#&gt; BugReports: https://github.com/brechtdv/prevalence/issues</span>
+<span class="co">#&gt; Description: The prevalence package provides Frequentist and</span>
+<span class="co">#&gt;        Bayesian methods for prevalence assessment studies.</span>
+<span class="co">#&gt;        IMPORTANT: the truePrev functions in the prevalence package</span>
+<span class="co">#&gt;        call on JAGS (Just Another Gibbs Sampler), which therefore</span>
+<span class="co">#&gt;        has to be available on the user's system. JAGS can be</span>
+<span class="co">#&gt;        downloaded from http://mcmc-jags.sourceforge.net/.</span>
+<span class="co">#&gt; Depends: R (&gt;= 3.0.0), rjags, coda, methods</span>
+<span class="co">#&gt; SystemRequirements: JAGS (&gt;= 3.2.0) (see</span>
+<span class="co">#&gt;        http://mcmc-jags.sourceforge.net)</span>
+<span class="co">#&gt; License: GPL (&gt;= 2)</span>
+<span class="co">#&gt; URL: http://prevalence.cbra.be/</span>
+<span class="co">#&gt; LazyLoad: yes</span>
+<span class="co">#&gt; NeedsCompilation: no</span>
+<span class="co">#&gt; Packaged: 2015-04-20 14:55:49 UTC; UGent</span>
+<span class="co">#&gt; Built: R 3.3.0; ; 2015-04-20 15:00:40 UTC; windows</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -- File: C:/Users/UGent/Documents/R/win-library/prevalence/Meta/package.rds</span></code></pre></div>
+<br>
+<p id="footer">
+Page last modified: Sat, 06 Feb 2016. <a href="https://github.com/brechtdv/prevalence-www">View Rmarkdown source code on GitHub</a>.
+</p>

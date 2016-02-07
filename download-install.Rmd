@@ -1,0 +1,42 @@
+---
+output: bd::html_body
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("preamble.R")
+```
+
+## **prevalence** `r pkg` / download & installation
+
+<br>The **prevalence** package provides Frequentist and Bayesian methods useful in prevalence assessment studies. Several methods are available for estimating True Prevalence (TP) from Apparent Prevalence (AP).
+
+Version `r pkg` of the **prevalence** package is [available on CRAN](https://cran.r-project.org/package=prevalence). Source code of the development version is [on GitHub](https://github.com/brechtdv/prevalence).
+
+This is how you can install the prevalence package in **R**:
+
+* download and install the latest version of **R** via [cran.r-project.org](https://cran.r-project.org/)
+* download and install **JAGS** via [mcmc-jags.sourceforge.net](http://mcmc-jags.sourceforge.net/)
+* download and install the **prevalence** package via
+
+<ul>
+<li style="list-style-type: none;">
+```{r, eval=FALSE}
+install.packages("prevalence")
+```
+</li>
+</ul>
+
+Finally, to attach **prevalence** to your **R** session, simply run
+```{r, eval=FALSE}
+library(prevalence)
+```
+
+### Package description
+
+```{r}
+packageDescription("prevalence")
+```
+
+
+```{r child="footer.Rmd"}
+```

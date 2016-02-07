@@ -1,0 +1,98 @@
+---
+output: bd::html_body
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("preamble.R")
+```
+
+## Estimating true prevalence based on a single test
+
+<br>This tutorial is based on [Devleesschauwer et al. (2013), _Seroprevalence of zoonotic parasites in pigs slaughtered in the Kathmandu Valley of Nepal_](http://dx.doi.org/10.1089/vbz.2013.1313).
+
+To assess the importance of pork as a carrier of zoonotic agents, we performed a cross-sectional study in the Kathmandu Valley of Nepal, in which we serologically determined the infection status of slaughtered pigs with regard to _Taenia solium_ and other parasites transmitted through pork consumption.
+
+Serum samples were tested for the presence of circulating _Taenia_ spp. cysticercal ES antigens, using the B158/B60 Ag-ELISA. This test shows a good performance for the detection of viable _Taenia_ spp. cysticerci, but is not able to differentiate the different porcine _Taenia_ species, i.e., _T. solium_, _T. hydatigena_, and _T. asiatica_.
+
+### Data
+
+From 2007 to 2010, 742 pigs were sampled at slaughter, of which 142 tested positive on Ag-ELISA.
+
+Because no confirmation test was available to assess the true infection status, an estimate of the true prevalence was obtained by combining the apparent prevalence with prior information on the test characteristics in a Bayesian model. Two cases were considered, i.e., the performance of the test for detecting viable _Taenia_ spp. cysticerci, and the performance for detecting _T. solium_ cysticerci. In the first case, test sensitivity was modeled as a `Uniform(0.60, 1.00)` distribution, and test specificity as a `Uniform(0.90, 1.00)` distribution. In the second case, the specificity was modeled as a Uniform distribution ranging from 75% to 100%, reflecting the potentially high proportion of positive test results due to infection with _T. hydatigena_ or _T. asiatica_, which are both known to occur in Nepal.
+
+### Apparent prevalence
+
+We start our analysis by calculating the apparent prevalence (i.e., not corrected for imperfect test characteristics). We can use the `propCI()` function from the **prevalence** package to obtain confidence intervals for the apparent prevalence:
+
+```{r}
+propCI(142, 742)
+```
+
+Different methods exist for estimating the confidence interval of a proportion. Function `propCI()` provides the five most common methods. I typically report the exact binomial confidence intervals, because this method never leads to lower bounds < 0 or upper bounds > 1.
+
+### True prevalence (scenario 1)
+
+We will now estimate the true (or "informed") prevalence, taking into account assumptions on the test sensitivity and specificity. In a first scenario, we will model test sensitivity as a `Uniform(0.60, 1.00)` distribution, and test specificity as a `Uniform(0.90, 1.00)` distribution:
+
+```{r}
+cysti <-
+  truePrev(x = 142, n = 742,
+           SE = ~dunif(0.60, 1.00),
+           SP = ~dunif(0.90, 1.00))
+
+print(cysti)
+```
+
+The true prevalence is estimated as `r percent(summary(cysti)$TP["all chains", "mean"])`, close to the apparent prevalence, but this is mere coincidence. The 95% uncertainty interval on the true prevalence ranges from `r percent(summary(cysti)$TP["all chains", "2.5%"])` to `r percent(summary(cysti)$TP["all chains", "97.5%"])`.
+
+By default, the truePrev function uses 2 chains of 20,000 samples, of which the first 10,000 are discarded as burnin. It is important to assess whether or not the chains have converged. The Multivariate Brooks-Gelman-Rubin statistic gives an indication that this was indeed the case.
+
+Further insights can be gained from looking at diagnostic plots:
+
+```{r}
+par(mfrow = c(2, 2))
+plot(cysti)
+```
+
+The density plot does not show any signs of multimodality; the trace plot shows proper mixing of the two chains.
+
+### True prevalence (scenario 2)
+
+In a second scenario, we will again model test sensitivity as a `Uniform(0.60, 1.00)` distribution, but now model test specificity as a `Uniform(0.75, 1.00)` distribution, taking into account the possible cross-reactions:
+
+```{r}
+cysti2 <-
+  truePrev(x = 142, n = 742,
+           SE = ~dunif(0.60, 1.00),
+           SP = ~dunif(0.75, 1.00))  # note the larger uncertainty
+
+print(cysti2)
+```
+
+The true prevalence is now estimated as `r percent(summary(cysti2)$TP["all chains", "mean"])`, lower than in the first scenario. This is logical, as we accounted for a higher possibility of false positives. Because of the additional uncertainty, the 95% uncertainty interval on the true prevalence estimate has become wider, i.e., `r percent(summary(cysti2)$TP["all chains", "2.5%"])` to `r percent(summary(cysti2)$TP["all chains", "97.5%"])`.
+
+The same diagnostic plots:
+
+```{r}
+par(mfrow = c(2, 2))
+plot(cysti2)
+```
+
+Again, this indicates proper mixing of the two chains. Both scenarios could thus be equally valid. Indeed, the DIC values of both models do not differ substantially:
+
+```{r}
+cysti@diagnostics$DIC
+
+cysti2@diagnostics$DIC
+```
+
+
+
+### R session
+
+```{r, echo=FALSE}
+sessionInfo()
+```
+
+```{r child="footer.Rmd"}
+```

@@ -1,0 +1,61 @@
+---
+output: bd::html_body
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("preamble.R")
+```
+
+## **prevalence** `r pkg` / documentation
+
+<br>The **prevalence** package provides Frequentist and Bayesian methods useful in prevalence assessment studies. Several methods are available for estimating True Prevalence (TP) from Apparent Prevalence (AP).
+
+### Available functions
+
+<table>
+ <tr valign="top">
+  <td>[`propCI`](?main=docs&sub=propCI)<td>
+  <td>Derive confidence intervals for a prevalence estimate</td>
+ </tr>
+ <tr valign="top">
+  <td>[`truePrev`](?main=docs&sub=truePrev)<td>
+  <td>Estimate TP from AP obtained by testing individual samples with a single test</td>
+ </tr>
+ <tr valign="top">
+  <td>[`truePrevMulti`](?main=docs&sub=truePrevMulti)<td>
+  <td>Estimate TP from AP obtained by testing individual samples with multiple tests, using a conditional probability scheme</td>
+ </tr>
+ <tr valign="top">
+  <td>[`truePrevMulti2`](?main=docs&sub=truePrevMulti2)<td>
+  <td>Estimate TP from AP obtained by testing individual samples with multiple tests, using a covariance scheme</td>
+ </tr>
+ <tr valign="top">
+  <td>[`truePrevPools`](?main=docs&sub=truePrevPools)<td>
+  <td>Estimate TP from AP obtained by testing pooled samples</td>
+ </tr>
+ <tr valign="top">
+  <td>[`betaPERT`](?main=docs&sub=betaPERT)<td>
+  <td>Calculate the parameters of a Beta-PERT distribution</td>
+ </tr>
+ <tr valign="top">
+  <td>[`betaExpert`](?main=docs&sub=betaExpert)<td>
+  <td>Calculate the parameters of a Beta distribution based on expert opinion</td>
+ </tr>
+</table>
+
+### Help files
+
+<table>
+ <tr valign="top">
+  <td>[`distributions`](?main=docs&sub=distributions)<td>
+  <td>Specifying distributions for priors and external information</td>
+ </tr>
+ <tr valign="top">
+  <td>[`prev-class`](?main=docs&sub=prev-class)<td>
+  <td>Definition and methods for objects of class `prev`</td>
+ </tr>
+</table>
+
+
+```{r child="footer.Rmd"}
+```
