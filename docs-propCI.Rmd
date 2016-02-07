@@ -55,35 +55,25 @@ Five methods are available for calculating confidence intervals. For convenience
 
 `"agresti.coull", "agresti-coull", "ac"`
 
-$$
-\tilde{n} = n + z_{1-\frac{\alpha}{2}}^2
-\tilde{p} = \frac{1}{\tilde{n}}(x + \frac{1}{2} z_{1-\frac{\alpha}{2}}^2)
-\tilde{p} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1-\tilde{p})}{\tilde{n}}}
-$$
+$$\tilde{n} = n + z_{1-\frac{\alpha}{2}}^2$$
+$$\tilde{p} = \frac{1}{\tilde{n}}(x + \frac{1}{2} z_{1-\frac{\alpha}{2}}^2)$$
+$$\tilde{p} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1-\tilde{p})}{\tilde{n}}}$$
     
 `"exact", "clopper-pearson", "cp"`
 
-$$
-(Beta(\frac{\alpha}{2}; x, n - x + 1), Beta(1 - \frac{\alpha}{2}; x + 1, n - x))
-$$
+$$(Beta(\frac{\alpha}{2}; x, n - x + 1), Beta(1 - \frac{\alpha}{2}; x + 1, n - x))$$
 
 `"jeffreys", "bayes"`
 
-$$
-(Beta(\frac{\alpha}{2}; x + 0.5, n - x + 0.5), Beta(1 - \frac{\alpha}{2}; x + 0.5, n - x + 0.5))
-$$
+$$(Beta(\frac{\alpha}{2}; x + 0.5, n - x + 0.5), Beta(1 - \frac{\alpha}{2}; x + 0.5, n - x + 0.5))$$
 
 `"wald", "asymptotic", "normal"`
 
-$$
-p \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n}}
-$$
+$$p \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n}}$$
 
 `"wilson"`
 
-$$
-\frac{p + \frac{z_{1-\frac{\alpha}{2}}^2}{2n} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n} + \frac{z_{1-\frac{\alpha}{2}}^2}{4n^2}}}{1 + \frac{z_{1-\frac{\alpha}{2}}^2}{n}}
-$$
+$$\frac{p + \frac{z_{1-\frac{\alpha}{2}}^2}{2n} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n} + \frac{z_{1-\frac{\alpha}{2}}^2}{4n^2}}}{1 + \frac{z_{1-\frac{\alpha}{2}}^2}{n}}$$
 
 ### Value
 
@@ -123,8 +113,8 @@ Data frame with seven columns:
 ### Note
 
 In case the observed prevalence equals 0% (ie, `x == 0`), an upper one-sided confidence interval is returned. In case the observed prevalence equals 100% (ie, `x == n`), a lower one-sided confidence interval is returned. In all other cases, two-sided confidence intervals are returned.
-Examples
 
+### Examples
 
 ```{r}
 ## All methods, 95% confidence intervals

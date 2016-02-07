@@ -56,27 +56,15 @@ Sort results by <code>&quot;level&quot;</code> or <code>&quot;method&quot;</code
 <h3 id="details">Details</h3>
 <p>Five methods are available for calculating confidence intervals. For convenience, synonyms are allowed.</p>
 <p><code>&quot;agresti.coull&quot;, &quot;agresti-coull&quot;, &quot;ac&quot;</code></p>
-<p><span class="math display">\[
-\tilde{n} = n + z_{1-\frac{\alpha}{2}}^2
-\tilde{p} = \frac{1}{\tilde{n}}(x + \frac{1}{2} z_{1-\frac{\alpha}{2}}^2)
-\tilde{p} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1-\tilde{p})}{\tilde{n}}}
-\]</span></p>
+<p><span class="math display">\[\tilde{n} = n + z_{1-\frac{\alpha}{2}}^2\]</span> <span class="math display">\[\tilde{p} = \frac{1}{\tilde{n}}(x + \frac{1}{2} z_{1-\frac{\alpha}{2}}^2)\]</span> <span class="math display">\[\tilde{p} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1-\tilde{p})}{\tilde{n}}}\]</span></p>
 <p><code>&quot;exact&quot;, &quot;clopper-pearson&quot;, &quot;cp&quot;</code></p>
-<p><span class="math display">\[
-(Beta(\frac{\alpha}{2}; x, n - x + 1), Beta(1 - \frac{\alpha}{2}; x + 1, n - x))
-\]</span></p>
+<p><span class="math display">\[(Beta(\frac{\alpha}{2}; x, n - x + 1), Beta(1 - \frac{\alpha}{2}; x + 1, n - x))\]</span></p>
 <p><code>&quot;jeffreys&quot;, &quot;bayes&quot;</code></p>
-<p><span class="math display">\[
-(Beta(\frac{\alpha}{2}; x + 0.5, n - x + 0.5), Beta(1 - \frac{\alpha}{2}; x + 0.5, n - x + 0.5))
-\]</span></p>
+<p><span class="math display">\[(Beta(\frac{\alpha}{2}; x + 0.5, n - x + 0.5), Beta(1 - \frac{\alpha}{2}; x + 0.5, n - x + 0.5))\]</span></p>
 <p><code>&quot;wald&quot;, &quot;asymptotic&quot;, &quot;normal&quot;</code></p>
-<p><span class="math display">\[
-p \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n}}
-\]</span></p>
+<p><span class="math display">\[p \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n}}\]</span></p>
 <p><code>&quot;wilson&quot;</code></p>
-<p><span class="math display">\[
-\frac{p + \frac{z_{1-\frac{\alpha}{2}}^2}{2n} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n} + \frac{z_{1-\frac{\alpha}{2}}^2}{4n^2}}}{1 + \frac{z_{1-\frac{\alpha}{2}}^2}{n}}
-\]</span></p>
+<p><span class="math display">\[\frac{p + \frac{z_{1-\frac{\alpha}{2}}^2}{2n} \pm z_{1-\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n} + \frac{z_{1-\frac{\alpha}{2}}^2}{4n^2}}}{1 + \frac{z_{1-\frac{\alpha}{2}}^2}{n}}\]</span></p>
 <h3 id="value">Value</h3>
 <p>Data frame with seven columns:</p>
 <table>
@@ -138,7 +126,8 @@ Upper confidence limit
 </tr>
 </table>
 <h3 id="note">Note</h3>
-<p>In case the observed prevalence equals 0% (ie, <code>x == 0</code>), an upper one-sided confidence interval is returned. In case the observed prevalence equals 100% (ie, <code>x == n</code>), a lower one-sided confidence interval is returned. In all other cases, two-sided confidence intervals are returned. Examples</p>
+<p>In case the observed prevalence equals 0% (ie, <code>x == 0</code>), an upper one-sided confidence interval is returned. In case the observed prevalence equals 100% (ie, <code>x == n</code>), a lower one-sided confidence interval is returned. In all other cases, two-sided confidence intervals are returned.</p>
+<h3 id="examples">Examples</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## All methods, 95% confidence intervals
 <span class="kw">propCI</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>)
 <span class="co">#&gt;     x   n         p        method level     lower     upper</span>
