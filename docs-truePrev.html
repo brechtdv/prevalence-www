@@ -28,7 +28,7 @@ The sample size
 <code>SE, SP</code>
 </td>
 <td>
-The prior distribution for sensitivity (SE) and specificity (SP); see <a href="#Details">Details</a> below for specification of these distributions
+The prior distribution for sensitivity (SE) and specificity (SP); see <a href="#Details">details</a> for specification of these distributions
 </td>
 </tr>
 <tr>
@@ -73,75 +73,75 @@ Logical flag, indicating if JAGS process output should be printed to the R conso
 </tr>
 </table>
 <h3 id="details">Details</h3>
-<p><code>truePrev</code> calls on <strong>JAGS</strong> via the <strong>rjags</strong> package to estimate the true prevalence from the apparent prevalence in a Bayesian framework. The default model, in BUGS language, is given below. To see the actual fitted model, see the model slot of the <code>prev</code>-object.</p>
+<p><code>truePrev</code> calls on <a href="http://mcmc-jags.sourceforge.net/"><strong>JAGS</strong></a> via the <a href="https://cran.r-project.org/package=rjags"><strong>rjags</strong></a> package to estimate the true prevalence from the apparent prevalence in a Bayesian framework. The default model, in BUGS language, is given below. To see the actual fitted model, see the model slot of the <a href="?main=docs&amp;sub=prev-class"><code>prev</code>-object</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model {
   x ~<span class="st"> </span><span class="kw">dbin</span>(AP, n)
   AP &lt;-<span class="st"> </span>SE *<span class="st"> </span>TP +<span class="st"> </span>(<span class="dv">1</span> -<span class="st"> </span>SP) *<span class="st"> </span>(<span class="dv">1</span> -<span class="st"> </span>TP)
-  <span class="co"># SE ~ user-defined (see here)</span>
-  <span class="co"># SP ~ user-defined (see here)</span>
+  <span class="co"># SE ~ user-defined (see [here](?main=docs&amp;sub=distributions))</span>
+  <span class="co"># SP ~ user-defined (see [here](?main=docs&amp;sub=distributions))</span>
   TP ~<span class="st"> </span><span class="kw">dbeta</span>(prior[<span class="dv">1</span>], prior[<span class="dv">2</span>])
 }</code></pre></div>
 <p>The test sensitivity (<code>SE</code>) and specificity (<code>SP</code>) can be specified, independently, as one of <code>fixed</code> (default), <code>uniform</code>, <code>beta</code>, <code>pert</code>, or <code>beta-expert</code>.</p>
-<p>More info on specifying distributions is available <a href>here</a>.</p>
+<p>More info on specifying distributions is available <a href="?main=docs&amp;sub=distributions">here</a>.</p>
 <h3 id="value">Value</h3>
-<p>An object of class <code>prev</code>.</p>
+<p>An object of class <a href="?main=docs&amp;sub=prev-class"><code>prev</code></a>.</p>
 <h3 id="note">Note</h3>
-<p>Markov chain Monte Carlo sampling in truePrev is performed by JAGS (Just Another Gibbs Sampler) through the rjags package. JAGS can be downloaded from <a href="http://sourceforge.net/projects/mcmc-jags/" class="uri">http://sourceforge.net/projects/mcmc-jags/</a>.</p>
+<p>Markov chain Monte Carlo sampling in truePrev is performed by <a href="http://mcmc-jags.sourceforge.net/"><strong>JAGS</strong></a> (Just Another Gibbs Sampler) through the <a href="https://cran.r-project.org/package=rjags"><strong>rjags</strong></a> package. JAGS can be downloaded from <a href="http://sourceforge.net/projects/mcmc-jags/" class="uri">http://sourceforge.net/projects/mcmc-jags/</a>.</p>
 <h3 id="references">References</h3>
 <ul>
-<li>Speybroeck N, Devleesschauwer B, Joseph L, Berkvens D (2013) Misclassification errors in prevalence estimation: Bayesian handling with care. <em>Int J Public Health</em> <strong>58</strong>:791-795</li>
+<li>Speybroeck N, Devleesschauwer B, Joseph L, Berkvens D (2013) Misclassification errors in prevalence estimation: Bayesian handling with care. <em>Int J Public Health</em> <strong>58</strong>:791-795. <a href="http://dx.doi.org/10.1007/s00038-012-0439-9" class="uri">http://dx.doi.org/10.1007/s00038-012-0439-9</a></li>
 <li>Online Shiny application: <a href="http://prevalence.cbra.be/truePrev" class="uri">http://prevalence.cbra.be/truePrev</a></li>
 </ul>
 <h3 id="see-also">See also</h3>
-<p><strong>coda</strong> for various functions that can be applied to the <code>prev@mcmc</code> object</p>
+<p><a href="https://cran.r-project.org/package=coda"><strong>coda</strong></a> for various functions that can be applied to the <code>prev@mcmc</code> object</p>
 <h3 id="examples">Examples</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Taenia solium cysticercosis in Nepal
 ## 142 positives out of 742 pigs sampled</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Model SE and SP based on literature data
 ## Sensitivity ranges uniformly between 60% and 100%
 ## Specificity ranges uniformly between 75% and 100%</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; BUGS-style:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## .. BUGS-style
 <span class="kw">truePrev</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>,
          <span class="dt">SE =</span> ~<span class="kw">dunif</span>(<span class="fl">0.60</span>, <span class="fl">1.00</span>), <span class="dt">SP =</span> ~<span class="kw">dunif</span>(<span class="fl">0.75</span>, <span class="fl">1.00</span>))
 <span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.130  0.129 0.178 0.078 0.007 0.281</span>
-<span class="co">#&gt; SE 0.782  0.774 0.634 0.116 0.607 0.987</span>
-<span class="co">#&gt; SP 0.897  0.895 0.833 0.057 0.803 0.993</span>
+<span class="co">#&gt; TP 0.131  0.129 0.168 0.077 0.006 0.279</span>
+<span class="co">#&gt; SE 0.784  0.776 0.646 0.115 0.608 0.988</span>
+<span class="co">#&gt; SP 0.897  0.896 0.843 0.057 0.802 0.994</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Multivariate BGR statistic = 1.0038</span>
+<span class="co">#&gt; Multivariate BGR statistic = 1.0002</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; list-style:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## .. list-style
 SE &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">dist =</span> <span class="st">&quot;uniform&quot;</span>, <span class="dt">min =</span> <span class="fl">0.60</span>, <span class="dt">max =</span> <span class="fl">1.00</span>)
 SP &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">dist =</span> <span class="st">&quot;uniform&quot;</span>, <span class="dt">min =</span> <span class="fl">0.75</span>, <span class="dt">max =</span> <span class="fl">1.00</span>)
 <span class="kw">truePrev</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>, <span class="dt">SE =</span> SE, <span class="dt">SP =</span> SP)
 <span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.128  0.125 0.047 0.078 0.006 0.282</span>
-<span class="co">#&gt; SE 0.779  0.769 0.629 0.115 0.607 0.985</span>
-<span class="co">#&gt; SP 0.894  0.891 0.841 0.057 0.802 0.993</span>
+<span class="co">#&gt; TP 0.131  0.129 0.157 0.079 0.007 0.284</span>
+<span class="co">#&gt; SE 0.781  0.771 0.641 0.115 0.608 0.987</span>
+<span class="co">#&gt; SP 0.897  0.894 0.841 0.057 0.803 0.994</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Multivariate BGR statistic = 1</span>
+<span class="co">#&gt; Multivariate BGR statistic = 1.0038</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Model SE and SP based on expert opinions
-## Sensitivity lies in between 60% and 100%; most likely value is 90%
-## Specificity is with 95% confidence larger than 75%; most likely value is 90%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Model SE and SP based on expert opinion
+## .. SE lies in between 60% and 100%; most likely value is 90%
+## .. SP is with 95% confidence larger than 75%; most likely value is 90%
 SE &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">dist =</span> <span class="st">&quot;pert&quot;</span>, <span class="dt">a =</span> <span class="fl">0.60</span>, <span class="dt">m =</span> <span class="fl">0.90</span>, <span class="dt">b =</span> <span class="fl">1.00</span>)
 SP &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">dist =</span> <span class="st">&quot;beta-expert&quot;</span>, <span class="dt">mode =</span> <span class="fl">0.90</span>, <span class="dt">lower =</span> <span class="fl">0.75</span>, <span class="dt">p =</span> <span class="fl">0.95</span>)
 <span class="kw">truePrev</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>, <span class="dt">SE =</span> SE, <span class="dt">SP =</span> SP)
 <span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.107  0.110 0.127 0.054 0.009 0.209</span>
-<span class="co">#&gt; SE 0.860  0.866 0.895 0.068 0.716 0.972</span>
-<span class="co">#&gt; SP 0.889  0.890 0.905 0.043 0.810 0.967</span>
+<span class="co">#&gt; TP 0.107  0.108 0.123 0.054 0.010 0.211</span>
+<span class="co">#&gt; SE 0.860  0.867 0.896 0.068 0.716 0.973</span>
+<span class="co">#&gt; SP 0.889  0.889 0.908 0.043 0.812 0.966</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Multivariate BGR statistic = 1.0006</span>
+<span class="co">#&gt; Multivariate BGR statistic = 1.0095</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Model SE and SP as fixed values (each 90%)
 <span class="kw">truePrev</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>, <span class="dt">SE =</span> <span class="fl">0.90</span>, <span class="dt">SP =</span> <span class="fl">0.90</span>)
-<span class="co">#&gt;     mean median  mode    sd 2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.115  0.115 0.114 0.018 0.08 0.152</span>
-<span class="co">#&gt; SE 0.900  0.900 0.900 0.000 0.90 0.900</span>
-<span class="co">#&gt; SP 0.900  0.900 0.900 0.000 0.90 0.900</span>
+<span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
+<span class="co">#&gt; TP 0.115  0.115 0.114 0.018 0.081 0.152</span>
+<span class="co">#&gt; SE 0.900  0.900 0.900 0.000 0.900 0.900</span>
+<span class="co">#&gt; SP 0.900  0.900 0.900 0.000 0.900 0.900</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; BGR statistic = 1.0001 (upper CL = 1.0003)</span>
+<span class="co">#&gt; BGR statistic = 1.0004 (upper CL = 1.0013)</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
 <h3 id="tutorials">Tutorials</h3>
 <ul>

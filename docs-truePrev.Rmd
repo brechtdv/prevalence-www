@@ -33,7 +33,7 @@ truePrev(x, n, SE = 1, SP = 1, prior = c(1, 1),
  </tr>
  <tr>
   <td>`SE, SP`</td>
-  <td>The prior distribution for sensitivity (SE) and specificity (SP); see [Details](#Details) below for specification of these distributions</td>
+  <td>The prior distribution for sensitivity (SE) and specificity (SP); see [details](#Details) for specification of these distributions</td>
  </tr>
  <tr>
   <td>`prior`</td>
@@ -59,38 +59,38 @@ truePrev(x, n, SE = 1, SP = 1, prior = c(1, 1),
 
 ### Details
 
-`truePrev` calls on **JAGS** via the **rjags** package to estimate the true prevalence from the apparent prevalence in a Bayesian framework. The default model, in BUGS language, is given below. To see the actual fitted model, see the model slot of the `prev`-object.
+`truePrev` calls on [**JAGS**](http://mcmc-jags.sourceforge.net/) via the [**rjags**](https://cran.r-project.org/package=rjags) package to estimate the true prevalence from the apparent prevalence in a Bayesian framework. The default model, in BUGS language, is given below. To see the actual fitted model, see the model slot of the [`prev`-object](?main=docs&sub=prev-class).
 
 ```{r, eval=FALSE}
 model {
   x ~ dbin(AP, n)
   AP <- SE * TP + (1 - SP) * (1 - TP)
-  # SE ~ user-defined (see here)
-  # SP ~ user-defined (see here)
+  # SE ~ user-defined (see [here](?main=docs&sub=distributions))
+  # SP ~ user-defined (see [here](?main=docs&sub=distributions))
   TP ~ dbeta(prior[1], prior[2])
 }
 ```
 
 The test sensitivity (`SE`) and specificity (`SP`) can be specified, independently, as one of `fixed` (default), `uniform`, `beta`, `pert`, or `beta-expert`.
 
-More info on specifying distributions is available [here]().
+More info on specifying distributions is available [here](?main=docs&sub=distributions).
 
 ### Value
 
-An object of class `prev`.
+An object of class [`prev`](?main=docs&sub=prev-class).
 
 ### Note
 
-Markov chain Monte Carlo sampling in truePrev is performed by JAGS (Just Another Gibbs Sampler) through the rjags package. JAGS can be downloaded from http://sourceforge.net/projects/mcmc-jags/. 
+Markov chain Monte Carlo sampling in truePrev is performed by [**JAGS**](http://mcmc-jags.sourceforge.net/) (Just Another Gibbs Sampler) through the [**rjags**](https://cran.r-project.org/package=rjags) package. JAGS can be downloaded from http://sourceforge.net/projects/mcmc-jags/. 
 
 ### References
 
-* Speybroeck N, Devleesschauwer B, Joseph L, Berkvens D (2013) Misclassification errors in prevalence estimation: Bayesian handling with care. _Int J Public Health_ **58**:791-795
+* Speybroeck N, Devleesschauwer B, Joseph L, Berkvens D (2013) Misclassification errors in prevalence estimation: Bayesian handling with care. _Int J Public Health_ **58**:791-795. http://dx.doi.org/10.1007/s00038-012-0439-9
 * Online Shiny application: http://prevalence.cbra.be/truePrev
 
 ### See also
 
-**coda** for various functions that can be applied to the `prev@mcmc` object
+[**coda**](https://cran.r-project.org/package=coda) for various functions that can be applied to the `prev@mcmc` object
 
 ### Examples
 
@@ -106,22 +106,22 @@ Markov chain Monte Carlo sampling in truePrev is performed by JAGS (Just Another
 ```
 
 ```{r}
-#> BUGS-style:
+## .. BUGS-style
 truePrev(x = 142, n = 742,
          SE = ~dunif(0.60, 1.00), SP = ~dunif(0.75, 1.00))
 ```
 
 ```{r}
-#> list-style:
+## .. list-style
 SE <- list(dist = "uniform", min = 0.60, max = 1.00)
 SP <- list(dist = "uniform", min = 0.75, max = 1.00)
 truePrev(x = 142, n = 742, SE = SE, SP = SP)
 ```
 
 ```{r}
-## Model SE and SP based on expert opinions
-## Sensitivity lies in between 60% and 100%; most likely value is 90%
-## Specificity is with 95% confidence larger than 75%; most likely value is 90%
+## Model SE and SP based on expert opinion
+## .. SE lies in between 60% and 100%; most likely value is 90%
+## .. SP is with 95% confidence larger than 75%; most likely value is 90%
 SE <- list(dist = "pert", a = 0.60, m = 0.90, b = 1.00)
 SP <- list(dist = "beta-expert", mode = 0.90, lower = 0.75, p = 0.95)
 truePrev(x = 142, n = 742, SE = SE, SP = SP)
