@@ -18,16 +18,16 @@ source("preamble.R")
   <td>Estimate TP from AP obtained by testing individual samples with a single test</td>
  </tr>
  <tr valign="top">
+  <td>`r doc_fun("truePrevPools")`<td>
+  <td>Estimate TP from AP obtained by testing pooled samples</td>
+ </tr>
+ <tr valign="top">
   <td>`r doc_fun("truePrevMulti")`<td>
   <td>Estimate TP from AP obtained by testing individual samples with multiple tests, using a conditional probability scheme</td>
  </tr>
  <tr valign="top">
   <td>`r doc_fun("truePrevMulti2")`<td>
   <td>Estimate TP from AP obtained by testing individual samples with multiple tests, using a covariance scheme</td>
- </tr>
- <tr valign="top">
-  <td>`r doc_fun("truePrevPools")`<td>
-  <td>Estimate TP from AP obtained by testing pooled samples</td>
  </tr>
  <tr valign="top">
   <td>`r doc_fun("betaPERT")`<td>
