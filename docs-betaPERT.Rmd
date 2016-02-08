@@ -32,10 +32,10 @@ arg_table(
   b = "Optimistic estimate (Maximum value)",
   k = "Scale parameter",
   method = "`\"classic\"` or `\"vose\"`; see [details](\\#details)",
-  x = "Object of class `betaExpert`",
+  x = "Object of class `betaPERT`",
   y = "Currently ignored",
   conf.level = "Confidence level used in printing quantiles of resulting Beta-PERT distribution",
-  ... = "ther arguments to pass to function `print` and `plot`"
+  ... = "Other arguments to pass to function `print` and `plot`"
 )
 ```
 
@@ -47,7 +47,7 @@ Different methods exist in literature for defining the parameters of a Beta dist
 
 **Classic**
 
-The standard formulas for mean, standard deviation, $\alpha$ and $\beta\$, are as follows
+The standard formulas for mean, standard deviation, $\alpha$ and $\beta$, are as follows
 
 $$mean = (a + k*m + b) / (k + 2)$$
 
@@ -57,7 +57,7 @@ $$\alpha = { (mean - a) / (b - a) } * { (mean - a) * (b - mean) / sd^{2} - 1 } $
 
 $$\beta = \alpha * (b - mean) / (mean - a)$$
 
-The resulting distribution is a 4-parameter Beta distribution: $\(Beta(\alpha, \beta, a, b)\)$.
+The resulting distribution is a 4-parameter Beta distribution: $Beta(\alpha, \beta, a, b)$.
 
 **Vose**
 
@@ -84,6 +84,7 @@ arg_table(
 )
 ```
 
+
 Available generic functions for class `"betaPERT"` are `print` and `plot`.
 
 ### Note
@@ -92,9 +93,9 @@ The [**mc2d**](http://cran.r-project.org/package=mc2d) package provides the prob
 
 ### References
 
-* **Classic**: Malcolm DG, Roseboom JH, Clark CE, Fazar W (1959) Application of a technique for research and development program evaluation. _Oper Res_ **7**(5):646-669.
+* **Classic**: Malcolm DG, Roseboom JH, Clark CE, Fazar W (1959) Application of a technique for research and development program evaluation. _Oper Res_ **7**(5):646-669. http://dx.doi.org/10.1287/opre.7.5.646
 
-* **Vose**: David Vose. _Risk analysis, a quantitative guide, 2nd edition._ Wiley and Sons, 2000.
+* **Vose**: David Vose. _Risk analysis, a quantitative guide, 3rd edition._ Wiley and Sons, 2000.
 
 * [PERT distribution in _ModelRisk_ (Vose software)](http://vosesoftware.com/ModelRiskHelp/index.htm\#Distributions/Continuous_distributions/PERT_distribution.htm)
 
@@ -112,6 +113,11 @@ The [**mc2d**](http://cran.r-project.org/package=mc2d) package provides the prob
 ```{r}
 ## .. Classical PERT
 betaPERT(a = 0, m = 10, b = 50, method = "classic")
+```
+
+```{r, fig.height=5}
+## .. Plot method
+plot(betaPERT(a = 0, m = 10, b = 50, method = "classic"))
 ```
 
 ```{r}
