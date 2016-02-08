@@ -1,0 +1,182 @@
+<h2 id="calculate-the-parameters-of-a-beta-pert-distribution">Calculate the parameters of a Beta-PERT distribution</h2>
+<h3 id="description">Description</h3>
+<p>The Beta-PERT methodology allows to parametrize a generalized Beta distribution based on expert opinion regarding a pessimistic estimate (minimum value), a most likely estimate (mode), and an optimistic estimate (maximum value). The <code>betaPERT</code> function incorporates two methods of calculating the parameters of a Beta-PERT distribution, designated <code>&quot;classic&quot;</code> and <code>&quot;vose&quot;</code>.</p>
+<h3 id="usage">Usage</h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">betaPERT</span>(a, m, b, <span class="dt">k =</span> <span class="dv">4</span>, <span class="dt">method =</span> <span class="kw">c</span>(<span class="st">&quot;classic&quot;</span>, <span class="st">&quot;vose&quot;</span>))
+
+## S3 method for class 'betaPERT'
+<span class="kw">print</span>(x, <span class="dt">conf.level =</span> .<span class="dv">95</span>, ...)
+## S3 method for class 'betaPERT'
+<span class="kw">plot</span>(x, y, ...)</code></pre>
+<h3 id="arguments">Arguments</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<code>a</code>
+</td>
+<td>
+Pessimistic estimate (Minimum value)
+</td>
+</tr>
+<tr>
+<td>
+<code>m</code>
+</td>
+<td>
+Most likely estimate (Mode)
+</td>
+</tr>
+<tr>
+<td>
+<code>b</code>
+</td>
+<td>
+Optimistic estimate (Maximum value)
+</td>
+</tr>
+<tr>
+<td>
+<code>k</code>
+</td>
+<td>
+Scale parameter
+</td>
+</tr>
+<tr>
+<td>
+<code>method</code>
+</td>
+<td>
+<code>&quot;classic&quot;</code> or <code>&quot;vose&quot;</code>; see <a href="#details">details</a>
+</td>
+</tr>
+<tr>
+<td>
+<code>x</code>
+</td>
+<td>
+Object of class <code>betaExpert</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>y</code>
+</td>
+<td>
+Currently ignored
+</td>
+</tr>
+<tr>
+<td>
+<code>conf.level</code>
+</td>
+<td>
+Confidence level used in printing quantiles of resulting Beta-PERT distribution
+</td>
+</tr>
+<tr>
+<td>
+<code>...</code>
+</td>
+<td>
+ther arguments to pass to function <code>print</code> and <code>plot</code>
+</td>
+</tr>
+</tr>
+</table>
+<h3 id="details">Details</h3>
+<p>The Beta-PERT methodology was developed in the context of Program Evaluation and Review Technique (PERT). Based on a pessimistic estimate (minimum value), a most likely estimate (mode), and an optimistic estimate (maximum value), typically derived through expert elicitation, the parameters of a Beta distribution can be calculated. The Beta-PERT distribution is used in stochastic modeling and risk assessment studies to reflect uncertainty regarding specific parameters.</p>
+<p>Different methods exist in literature for defining the parameters of a Beta distribution based on PERT. The two most common methods are included in the <code>BetaPERT</code> function:</p>
+<p><strong>Classic</strong></p>
+<p>The standard formulas for mean, standard deviation, <span class="math">\(\alpha\)</span> and $$, are as follows</p>
+<p><span class="math">\[mean = (a + k*m + b) / (k + 2)\]</span></p>
+<p><span class="math">\[sd = (b - a) / (k + 2)\]</span></p>
+<p><span class="math">\[\alpha = { (mean - a) / (b - a) } * { (mean - a) * (b - mean) / sd^{2} - 1 } \]</span></p>
+<p><span class="math">\[\beta = \alpha * (b - mean) / (mean - a)\]</span></p>
+<p>The resulting distribution is a 4-parameter Beta distribution: <span class="math">\(\(Beta(\alpha, \beta, a, b)\)\)</span>.</p>
+<p><strong>Vose</strong></p>
+<p><a href="#references">Vose (2000)</a> describes a different formula for $$:</p>
+<p><span class="math">\[(mean - a) * (2 * m - a - b) / { (m - mean) * (b - a) }\]</span></p>
+<p>Mean and β are calculated using the standard formulas; as for the classical PERT, the resulting distribution is a 4-parameter Beta distribution: <span class="math">\(Beta(\alpha, \beta, a, b)\)</span>.</p>
+<p>Note: If <span class="math">\(m = mean\)</span>, <span class="math">\(\alpha\)</span> is calculated as <span class="math">\(1 + k/2\)</span>, in accordance with the <a href="http://cran.r-project.org/web/packages/mc2d/"><strong>mc2d</strong></a> package (see ‘Note’).</p>
+<h3 id="value">Value</h3>
+<p>A list of class <code>&quot;betaPERT&quot;</code>:</p>
+<table>
+<tbody>
+<tr>
+<td>
+<code>alpha</code>
+</td>
+<td>
+Parameter <span class="math">\(\alpha\)</span> (shape1) of the Beta distribution
+</td>
+</tr>
+<tr>
+<td>
+<code>beta</code>
+</td>
+<td>
+Parameter <span class="math">\(\beta\)</span> (shape2) of the Beta distribution
+</td>
+</tr>
+<tr>
+<td>
+<code>a</code>
+</td>
+<td>
+Pessimistic estimate (Minimum value)
+</td>
+</tr>
+<tr>
+<td>
+<code>m</code>
+</td>
+<td>
+Most likely estimate (Mode)
+</td>
+</tr>
+<tr>
+<td>
+<code>b</code>
+</td>
+<td>
+Optimistic estimate (Maximum value)
+</td>
+</tr>
+<tr>
+<td>
+<code>method</code>
+</td>
+<td>
+Applied method
+</td>
+</tr>
+</tr>
+</table>
+<p>Available generic functions for class <code>&quot;betaPERT&quot;</code> are <code>print</code> and <code>plot</code>.</p>
+<h3 id="note">Note</h3>
+<p>The <a href="http://cran.r-project.org/package=mc2d"><strong>mc2d</strong></a> package provides the probability density function, cumulative distribution function, quantile function and random number generation function for the PERT distribution, parametrized by the <code>&quot;vose&quot;</code> method.</p>
+<h3 id="references">References</h3>
+<ul>
+<li><p><strong>Classic</strong>: Malcolm DG, Roseboom JH, Clark CE, Fazar W (1959) Application of a technique for research and development program evaluation. <em>Oper Res</em> <strong>7</strong>(5):646-669.</p></li>
+<li><p><strong>Vose</strong>: David Vose. <em>Risk analysis, a quantitative guide, 2nd edition.</em> Wiley and Sons, 2000.</p></li>
+<li><p><a href="http://vosesoftware.com/ModelRiskHelp/index.htm#Distributions/Continuous_distributions/PERT_distribution.htm">PERT distribution in <em>ModelRisk</em> (Vose software)</a></p></li>
+</ul>
+<h3 id="see-also">See Also</h3>
+<p><a href="?main=functions&amp;sub=betaExpert"><code>betaExpert</code></a> for modelling a standard Beta distribution based on expert opinion</p>
+<h3 id="examples">Examples</h3>
+<pre class="sourceCode r"><code class="sourceCode r">## The value of a parameter of interest is believed to lie between 0 and 50
+## The most likely value is believed to be 10</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">## .. Classical PERT
+<span class="kw">betaPERT</span>(<span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">m =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">50</span>, <span class="dt">method =</span> <span class="st">&quot;classic&quot;</span>)
+<span class="co">#&gt;    method alpha  beta a  b mean   median mode      var     2.5%    97.5%</span>
+<span class="co">#&gt; 1 classic 1.968 4.592 0 50   15 13.93669   10 69.44444 2.247894 33.37723</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">## .. Vose parametrization
+<span class="kw">betaPERT</span>(<span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">m =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">50</span>, <span class="dt">method =</span> <span class="st">&quot;vose&quot;</span>)
+<span class="co">#&gt;   method alpha beta a  b mean   median mode var     2.5%    97.5%</span>
+<span class="co">#&gt; 1   vose   1.8  4.2 0 50   15 13.83361   10  75 1.960636 34.15672</span></code></pre>
+<br>
+<p id="footer">
+Page last modified: Mon, 08 Feb 2016. <a href="https://github.com/brechtdv/prevalence-www">View Rmarkdown source code on GitHub</a>.
+</p>
