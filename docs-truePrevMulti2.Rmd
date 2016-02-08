@@ -1,0 +1,224 @@
+---
+output: bd::html_body
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+source("preamble.R")
+```
+
+## Estimate true prevalence from individuals samples using multiple tests -- covariance scheme
+
+### Description
+
+Bayesian estimation of true prevalence from apparent prevalence obtained by applying _multiple_ tests to _individual_ samples. `truePrevMulti2` implements the approach described by [Dendukuri and Joseph (2001)](#references), which uses a multinomial distribution to model observed test results, and in which conditional dependence between tests is modelled through covariances.
+
+### Usage
+
+```{r, eval=FALSE}
+truePrevMulti2(x, n, prior, nchains = 2, burnin = 10000, update = 10000,
+               verbose = FALSE)
+```
+
+### Arguments
+
+<table>
+<tbody>
+ <tr valign="top">
+  <td>`x`</td>
+  <td>Vector of apparent test results; see [details](#details)</td>
+ </tr>
+ <tr valign="top">
+  <td>`n`</td>
+  <td>The total sample size</td>
+ </tr>
+ <tr valign="top">
+  <td>`prior`</td>
+  <td>The prior distribution for `theta`; see [details](#details)</td>
+ </tr>
+ <tr valign="top">
+  <td>`nchains`</td>
+  <td>The number of chains used in the estimation process; must be _&ge;2_</td>
+ </tr>
+ <tr valign="top">
+  <td>`burnin`</td>
+  <td>The number of discarded model iterations; defaults to 10,000</td>
+ </tr>
+ <tr valign="top">
+  <td>`update`</td>
+  <td>The number of withheld model iterations; defaults to 10,000</td>
+ </tr>
+ <tr valign="top">
+  <td>`verbose`</td>
+  <td>Logical flag, indicating if JAGS process output should be printed to the R console; defaults to `FALSE`</td>
+ </tr>
+</tbody>
+</table>
+
+### Details
+
+`truePrevMulti2` calls on [**JAGS**](http://mcmc-jags.sourceforge.net/) via the [**rjags**](https://cran.r-project.org/package=rjags) package to estimate true prevalence from apparent prevalence in a Bayesian framework. `truePrevMulti2` fits a multinomial model to the apparent test results obtained by testing individual samples with a given number of tests. To see the actual fitted model, see the model slot of the `r doc_help("prev-class")` object.  
+
+The vector of apparent tests results, `x`, must contain the number of samples corresponding to each combination of test results. To see how this vector is defined for the number of tests `h` at hand, use `r doc_help("define_x")`.
+
+Argument `prior` consists of prior distributions for:
+
+* True Prevalence: `TP`
+* SEnsitivity of each individual test: vector `SE`
+* SPecificity of each individual test: vector `SP`
+* Conditional covariance of all possible test combinations given a truly positive disease status: vector `a`
+* Conditional covariance of all possible test combinations given a truly negative disease status: vector `b`
+
+To see how `prior` is defined for the number of tests `n`, use `r doc_help("define_prior2")`.  
+
+The values of `prior` can be specified in two ways, referred to as BUGS-style and list-style, respectively. See also below for some [examples](#examples).  
+
+For BUGS-style specification, the values of `theta` should be given between curly brackets (i.e., `{}`), separated by line breaks. `theta` values can be specified to be deterministic (i.e., fixed), using the `<-` operator, or stochastic, using the `~` operator.
+
+Alternatively, priors can be specified in a _named_ `list()`.
+
+More info on specifying distributions is available [here](?main=help&sub=distributions).
+
+### Value
+
+A `r doc_help("prev-class")` object.
+
+### Note
+
+Markov chain Monte Carlo sampling in `truePrevMulti2` is performed by [**JAGS**](http://mcmc-jags.sourceforge.net/) (Just Another Gibbs Sampler) through the [**rjags**](https://cran.r-project.org/package=rjags) package. JAGS can be downloaded from http://sourceforge.net/projects/mcmc-jags/.
+
+### References
+
+* Dendukuri N, Joseph L (2001) Bayesian approaches to modeling the conditional dependence between multiple diagnostic tests. _Biometrics_ **57**:158-167. http://dx.doi.org/10.1111/j.0006-341X.2001.00158.x
+
+### See Also
+
+`r doc_help("define_x")`: how to define the vector of apparent test results `x`  
+
+`r doc_help("define_prior2")`: how to define `prior`  
+
+[**coda**](https://cran.r-project.org/package=coda) for various functions that can be applied to the `prev@mcmc` object
+
+`r doc_fun("truePrevMulti")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with multiple tests, using a conditional probability scheme
+
+`r doc_fun("truePrev")`: estimate true prevalence from apparent prevalence obtained by testing _individual_ samples with a single test
+
+`r doc_fun("truePrevPools")`: estimate true prevalence from apparent prevalence obtained by testing _pooled_ samples with a single test
+
+`r doc_fun("betaPERT")`: calculate the parameters of a Beta-PERT distribution
+
+`r doc_fun("betaExpert")`: calculate the parameters of a Beta distribution based on expert opinion
+
+
+### Examples
+
+```{r}
+## ===================================================== ##
+## 2-TEST EXAMPLE: Strongyloides                         ##
+## ----------------------------------------------------- ##
+## Two tests were performed on 162 humans                ##
+## -> T1 = stool examination                             ##
+## -> T2 = serology test                                 ##
+## Expert opinion generated the following priors:        ##
+## -> SE1 ~ dbeta( 4.44, 13.31)                          ##
+## -> SP1 ~ dbeta(71.25,  3.75)                          ##
+## -> SE2 ~ dbeta(21.96,  5.49)                          ##
+## -> SP2 ~ dbeta( 4.10,  1.76)                          ##
+## The following results were obtained:                  ##
+## -> 38 samples T1+,T2+                                 ##
+## ->  2 samples T1+,T2-                                 ##
+## -> 87 samples T1-,T2+                                 ##
+## -> 35 samples T1-,T2-                                 ##
+## ===================================================== ##
+
+## how is the 2-test model defined?
+define_x(2)
+define_prior2(2)
+
+## fit Strongyloides 2-test model
+## a first model assumes conditional independence
+## -> set covariance terms to zero
+strongy_indep <-
+truePrevMulti2(
+  x = c(38, 2, 87, 35),
+  n = 162,
+  prior = {
+    TP ~ dbeta(1, 1)
+    SE[1] ~ dbeta( 4.44, 13.31)
+    SP[1] ~ dbeta(71.25,  3.75)
+    SE[2] ~ dbeta(21.96,  5.49)
+    SP[2] ~ dbeta( 4.10,  1.76)
+    a[1] <- 0
+    b[1] <- 0
+  })
+
+## show model results
+strongy_indep
+
+## fit same model using 'list-style'
+strongy_indep <-
+truePrevMulti2(
+  x = c(38, 2, 87, 35),
+  n = 162,
+  prior =
+    list(
+      TP = list(dist = "beta", alpha = 1, beta = 1),
+      SE1 = list(dist = "beta", alpha = 4.44, beta = 13.31),
+      SP1 = list(dist = "beta", alpha = 71.25, beta = 3.75),
+      SE2 = list(dist = "beta", alpha = 21.96, beta = 5.49),
+      SP2 = list(dist = "beta", alpha = 4.10, beta = 1.76),
+      a1 = 0,
+      b1 = 0
+    )
+  )
+
+## show model results
+strongy_indep
+
+## fit Strongyloides 2-test model
+## a second model allows for conditional dependence
+## -> a[1] is the covariance between T1 and T2, given D+
+## -> b[1] is the covariance between T1 and T2, given D-
+## -> a[1] and b[1] can range between +/- 2^-h, ie, (-.25, .25)
+strongy <-
+truePrevMulti2(
+  x = c(38, 2, 87, 35),
+  n = 162,
+  prior = {
+    TP ~ dbeta(1, 1)
+    SE[1] ~ dbeta( 4.44, 13.31)
+    SP[1] ~ dbeta(71.25,  3.75)
+    SE[2] ~ dbeta(21.96,  5.49)
+    SP[2] ~ dbeta( 4.10,  1.76)
+    a[1] ~ dunif(-0.25, 0.25)
+    b[1] ~ dunif(-0.25, 0.25)
+  })
+
+## explore model structure
+str(strongy)         # overall structure
+str(strongy@par)     # structure of slot 'par'
+str(strongy@mcmc)    # structure of slot 'mcmc'
+strongy@model        # fitted model
+strongy@diagnostics  # DIC, BGR and Bayes-P values
+
+## standard methods
+print(strongy)
+summary(strongy)
+par(mfrow = c(2, 2))
+plot(strongy)           # shows plots of TP by default
+plot(strongy, "SE[1]")  # same plots for SE1
+plot(strongy, "SE[2]")  # same plots for SE2
+plot(strongy, "SP[1]")  # same plots for SP1
+plot(strongy, "SP[2]")  # same plots for SP2
+plot(strongy, "a[1]")   # same plots for a[1]
+plot(strongy, "b[1]")   # same plots for b[1]
+
+## coda plots of all parameters
+par(mfrow = c(2, 4)); densplot(strongy, col = "red")
+par(mfrow = c(2, 4)); traceplot(strongy)
+par(mfrow = c(2, 4)); gelman.plot(strongy)
+par(mfrow = c(2, 4)); autocorr.plot(strongy)
+```
+
+
+```{r child="footer.Rmd"}
+```
