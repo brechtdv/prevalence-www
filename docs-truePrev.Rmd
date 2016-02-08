@@ -86,7 +86,7 @@ Markov chain Monte Carlo sampling in `truePrev` is performed by [**JAGS**](http:
 ### References
 
 * Speybroeck N, Devleesschauwer B, Joseph L, Berkvens D (2013) Misclassification errors in prevalence estimation: Bayesian handling with care. _Int J Public Health_ **58**:791-795. http://dx.doi.org/10.1007/s00038-012-0439-9
-* Online Shiny application: http://prevalence.cbra.be/truePrev
+* Online Shiny application: http://prevalence.cbra.be/shiny/truePrev
 
 ### See also
 

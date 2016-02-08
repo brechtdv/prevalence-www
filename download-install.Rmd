@@ -31,6 +31,10 @@ Finally, to attach **prevalence** to your **R** session, simply run
 library(prevalence)
 ```
 
+### Shiny apps
+
+The `r doc_fun("truePrev")` function is also available as a Shiny app: http://prevalence.cbra.be/shiny/truePrev
+
 ### Package description
 
 ```{r}

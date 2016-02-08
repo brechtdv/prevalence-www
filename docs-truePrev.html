@@ -90,7 +90,7 @@ Logical flag, indicating if JAGS process output should be printed to the R conso
 <h3 id="references">References</h3>
 <ul>
 <li>Speybroeck N, Devleesschauwer B, Joseph L, Berkvens D (2013) Misclassification errors in prevalence estimation: Bayesian handling with care. <em>Int J Public Health</em> <strong>58</strong>:791-795. <a href="http://dx.doi.org/10.1007/s00038-012-0439-9" class="uri">http://dx.doi.org/10.1007/s00038-012-0439-9</a></li>
-<li>Online Shiny application: <a href="http://prevalence.cbra.be/truePrev" class="uri">http://prevalence.cbra.be/truePrev</a></li>
+<li>Online Shiny application: <a href="http://prevalence.cbra.be/shiny/truePrev" class="uri">http://prevalence.cbra.be/shiny/truePrev</a></li>
 </ul>
 <h3 id="see-also">See also</h3>
 <p><a href="https://cran.r-project.org/package=coda"><strong>coda</strong></a> for various functions that can be applied to the <code>prev@mcmc</code> object</p>
@@ -109,22 +109,22 @@ Logical flag, indicating if JAGS process output should be printed to the R conso
 <span class="kw">truePrev</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>,
          <span class="dt">SE =</span> ~<span class="kw">dunif</span>(<span class="fl">0.60</span>, <span class="fl">1.00</span>), <span class="dt">SP =</span> ~<span class="kw">dunif</span>(<span class="fl">0.75</span>, <span class="fl">1.00</span>))
 <span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.137  0.136 0.174 0.077 0.008 0.284</span>
-<span class="co">#&gt; SE 0.776  0.765 0.631 0.115 0.607 0.986</span>
-<span class="co">#&gt; SP 0.900  0.899 0.873 0.056 0.805 0.995</span>
+<span class="co">#&gt; TP 0.129  0.126 0.169 0.078 0.006 0.282</span>
+<span class="co">#&gt; SE 0.780  0.770 0.632 0.114 0.608 0.986</span>
+<span class="co">#&gt; SP 0.895  0.892 0.837 0.057 0.804 0.994</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Multivariate BGR statistic = 1.0043</span>
+<span class="co">#&gt; Multivariate BGR statistic = 1.0007</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## .. list-style
 SE &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">dist =</span> <span class="st">&quot;uniform&quot;</span>, <span class="dt">min =</span> <span class="fl">0.60</span>, <span class="dt">max =</span> <span class="fl">1.00</span>)
 SP &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">dist =</span> <span class="st">&quot;uniform&quot;</span>, <span class="dt">min =</span> <span class="fl">0.75</span>, <span class="dt">max =</span> <span class="fl">1.00</span>)
 <span class="kw">truePrev</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>, <span class="dt">SE =</span> SE, <span class="dt">SP =</span> SP)
 <span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.125  0.119 0.120 0.077 0.006 0.282</span>
-<span class="co">#&gt; SE 0.780  0.770 0.632 0.115 0.607 0.986</span>
-<span class="co">#&gt; SP 0.892  0.887 0.854 0.055 0.803 0.993</span>
+<span class="co">#&gt; TP 0.134  0.132 0.138 0.078 0.008 0.284</span>
+<span class="co">#&gt; SE 0.778  0.765 0.634 0.116 0.607 0.986</span>
+<span class="co">#&gt; SP 0.899  0.896 0.879 0.056 0.804 0.995</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Multivariate BGR statistic = 1.0043</span>
+<span class="co">#&gt; Multivariate BGR statistic = 1.0031</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Model SE and SP based on expert opinion
 ## .. SE lies in between 60% and 100%; most likely value is 90%
@@ -133,20 +133,20 @@ SE &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">d
 SP &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">dist =</span> <span class="st">&quot;beta-expert&quot;</span>, <span class="dt">mode =</span> <span class="fl">0.90</span>, <span class="dt">lower =</span> <span class="fl">0.75</span>, <span class="dt">p =</span> <span class="fl">0.95</span>)
 <span class="kw">truePrev</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>, <span class="dt">SE =</span> SE, <span class="dt">SP =</span> SP)
 <span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.108  0.110 0.119 0.055 0.009 0.211</span>
-<span class="co">#&gt; SE 0.861  0.868 0.890 0.068 0.714 0.972</span>
-<span class="co">#&gt; SP 0.890  0.890 0.891 0.044 0.811 0.969</span>
+<span class="co">#&gt; TP 0.107  0.108 0.109 0.055 0.008 0.209</span>
+<span class="co">#&gt; SE 0.860  0.867 0.888 0.068 0.715 0.972</span>
+<span class="co">#&gt; SP 0.889  0.889 0.881 0.043 0.809 0.968</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Multivariate BGR statistic = 1.0009</span>
+<span class="co">#&gt; Multivariate BGR statistic = 1.001</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Model SE and SP as fixed values (each 90%)
 <span class="kw">truePrev</span>(<span class="dt">x =</span> <span class="dv">142</span>, <span class="dt">n =</span> <span class="dv">742</span>, <span class="dt">SE =</span> <span class="fl">0.90</span>, <span class="dt">SP =</span> <span class="fl">0.90</span>)
 <span class="co">#&gt;     mean median  mode    sd  2.5% 97.5%</span>
-<span class="co">#&gt; TP 0.115  0.115 0.114 0.018 0.081 0.152</span>
+<span class="co">#&gt; TP 0.115  0.115 0.115 0.018 0.081 0.151</span>
 <span class="co">#&gt; SE 0.900  0.900 0.900 0.000 0.900 0.900</span>
 <span class="co">#&gt; SP 0.900  0.900 0.900 0.000 0.900 0.900</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; BGR statistic = 1.0005 (upper CL = 1.0005)</span>
+<span class="co">#&gt; BGR statistic = 1.0001 (upper CL = 1.0001)</span>
 <span class="co">#&gt; BGR values substantially above 1 indicate lack of convergence</span></code></pre></div>
 <h3 id="tutorials">Tutorials</h3>
 <ul>
