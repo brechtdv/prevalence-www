@@ -40,6 +40,5 @@ arg_table <-
     cat(sprintf(" <tr>\n  <td>`%1$s`</td>\n  <td>%2$s</td>\n </tr>\n",
                 names(args), args),
         sep = "")
-    cat(" </tr>\n")
     cat("</table>")
   }
