@@ -1,0 +1,151 @@
+<h2 id="specifying-distributions">Specifying distributions</h2>
+<p>The <strong>prevalence</strong> package allows different ways of specifying the priors and external information used in the true prevalence estimation models. To see how these distributions need to be passed on to the different <code>truePrev</code> functions, see the documentation for <a href="?main=functions&amp;sub=truePrev"><code>truePrev</code></a>, <a href="?main=functions&amp;sub=truePrevPools"><code>truePrevPools</code></a>, <a href="?main=functions&amp;sub=truePrevMulti"><code>truePrevMulti</code></a> and <a href="?main=functions&amp;sub=truePrevMulti2"><code>truePrevMulti2</code></a>.</p>
+<h3 id="available-distributions">Available distributions</h3>
+<p>In general, five distributions are available:</p>
+<table>
+<tbody>
+<tr>
+<td>
+<code>fixed</code>
+</td>
+<td>
+This is actually not a (probabilistic) distribution, but just means that you specify a certain parameter as a single, fixed value. In other words, you do not assign any uncertainty to that parameter.
+</td>
+</tr>
+<tr>
+<td>
+<code>uniform</code>
+</td>
+<td>
+A Uniform distribution gives equal weight or likelihood to each value between a certain minimum and maximum. Values outside of that range get a likelihood of zero. A Uniform(0,1) distribution would mean that each value in between zero and one is equally likely, and is a common uniformative prior for the true prevalence. Find out more on <a href="http://en.wikipedia.org/wiki/Uniform_distribution_%28continuous%29">Wikipedia</a>.
+</td>
+</tr>
+<tr>
+<td>
+<code>pert</code>
+</td>
+<td>
+A PERT distribution is a synthetic distribution, representing the uncertainty in a parameter defined by a minimum, a maximum, and a most likely value. Function <a href="?main=docs&amp;sub=betaPERT"><code>betaPERT</code></a> can be used to generate the parameters of a PERT distribution from expert opinion on the minimum, maximum, and most likely value.
+</td>
+</tr>
+<tr>
+<td>
+<code>beta</code>
+</td>
+<td>
+A Beta distribution is characterized by two parameters, denoted alpha and beta (or shape1 and shape2 in <strong>R</strong>). As it is bounded by (0,1), it is a common distribution for modelling the uncertainty in proportions, such as prevalence, sensitivity and specificity. Find out more on <a href="http://en.wikipedia.org/wiki/Beta_distribution">Wikipedia</a>.
+</td>
+</tr>
+<tr>
+<td>
+<code>beta-expert</code>
+</td>
+<td>
+The beta-expert distribution in the <strong>prevalence</strong> package provides an alternative way of specifying a Beta distribution. Function <a href="?main=docs&amp;sub=betaPERT"><code>betaPERT</code></a> fits a Beta distribution to expert opinion on a best guess estimate (which can be the mean or the mode), and additional information on a lower bound, an upper bound, or both.
+</td>
+</tr>
+</table>
+<p>These distributions can be specified in two ways, i.e., using a <em>named list</em> and using so-called <em>BUGS-notation</em>.</p>
+<h3 id="specification-1-named-list">Specification 1: named list</h3>
+<p>Distribution parameters can be specified in a <em>named</em> <code>list()</code> as follows:</p>
+<table>
+<tbody>
+<tr valign="top">
+<td>
+<code>fixed</code>
+</td>
+<td>
+<code>list(dist = &quot;fixed&quot;, par)</code><br><br>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>uniform</code>
+</td>
+<td>
+<code>list(dist = &quot;uniform&quot;, min, max)</code><br><br>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>pert</code>
+</td>
+<td>
+<p><code>list(dist = &quot;pert&quot;, method, a, m, b, k)</code></p>
+<ul>
+<li><code>method</code> must be <code>&quot;classic&quot;</code> or <code>&quot;vose&quot;</code></li>
+<li><code>a</code> denotes the pessimistic (minimum) estimate</li>
+<li><code>m</code> denotes the most likely estimate</li>
+<li><code>b</code> denotes the optimistic (maximum) estimate</li>
+<li><code>k</code> denotes the scale parameter</li>
+</ul>
+<p>See <a href="?main=functions&amp;sub=betaPERT"><code>betaPERT</code></a> for more information on Beta-PERT parametrization.<br><br></p>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>beta</code>
+</td>
+<td>
+<code>list(dist = &quot;beta&quot;, alpha, beta)</code><br><br>
+</td>
+</tr>
+<tr valign="top">
+<td>
+<code>beta-expert</code>
+</td>
+<td>
+<p><code>list(dist = &quot;beta-expert&quot;, mode, mean, lower, upper, p)</code></p>
+<ul>
+<li><code>mode</code> denotes the most likely estimate<br />
+</li>
+<li><code>mean</code> denotes the mean estimate<br />
+</li>
+<li>only <code>mode</code> or <code>mean</code> should be specified<br />
+</li>
+<li><code>lower</code> denotes the lower bound<br />
+</li>
+<li><code>upper</code> denotes the upper bound<br />
+</li>
+<li><code>lower</code> and <code>upper</code> can be specified together or alone<br />
+</li>
+<li><code>p</code> denotes the confidence level of the expert</li>
+</ul>
+See <a href="?main=functions&amp;sub=betaExpert"><code>betaExpert</code></a> for more information on Beta-Expert parametrization.<br><br>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="specfication-2-bugs-style">Specfication 2: BUGS style</h3>
+<p>For Uniform, Beta and PERT distributions, BUGS-style short-hand notation is also allowed:</p>
+<table>
+<tbody>
+<tr>
+<td>
+<code>uniform</code>
+</td>
+<td>
+<code>~dunif(min, max)</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>pert</code>
+</td>
+<td>
+<code>~dpert(min, mode, max)</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>beta</code>
+</td>
+<td>
+<code>~dbeta(alpha, beta)</code>
+</td>
+</tr>
+</table>
+<br>
+<p id="footer">
+Page last modified: Mon, 08 Feb 2016. <a href="https://github.com/brechtdv/prevalence-www">View Rmarkdown source code on GitHub</a>.
+</p>
