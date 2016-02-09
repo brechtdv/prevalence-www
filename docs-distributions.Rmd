@@ -16,12 +16,12 @@ In general, five distributions are available:
 
 ```{r, echo=FALSE, results='asis'}
 arg_table(
-  fixed = "This is actually not a (probabilistic) distribution, but just means that you specify a certain parameter as a single, fixed value. In other words, you do not assign any uncertainty to that parameter.",
-  uniform = "A Uniform distribution gives equal weight or likelihood to each value between a certain minimum and maximum. Values outside of that range get a likelihood of zero. A Uniform(0,1) distribution would mean that each value in between zero and one is equally likely, and is a common uniformative prior for the true prevalence. Find out more on [Wikipedia](http://en.wikipedia.org/wiki/Uniform_distribution_%28continuous%29).",
-  pert = "A PERT distribution is a synthetic distribution, representing the uncertainty in a parameter defined by a minimum, a maximum, and a most likely value. Function [`betaPERT`](?main=docs&sub=betaPERT) can be used to generate the parameters of a PERT distribution from expert opinion on the minimum, maximum, and most likely value.",
-  beta = "A Beta distribution is characterized by two parameters, denoted alpha and beta (or shape1 and shape2 in **R**). As it is bounded by (0,1), it is a common distribution for modelling the uncertainty in proportions, such as prevalence, sensitivity and specificity. Find out more on [Wikipedia](http://en.wikipedia.org/wiki/Beta_distribution).",
-  'beta-expert' = "The beta-expert distribution in the **prevalence** package provides an alternative way of specifying a Beta distribution. Function [`betaPERT`](?main=docs&sub=betaPERT) fits a Beta distribution to expert opinion on a best guess estimate (which can be the mean or the mode), and additional information on a lower bound, an upper bound, or both."
-  )
+  Fixed = "This is actually not a (probabilistic) distribution, but just means that you specify a certain parameter as a single, fixed value. In other words, you do not assign any uncertainty to that parameter.",
+  Uniform = "A Uniform distribution gives equal weight or likelihood to each value between a certain minimum and maximum. Values outside of that range get a likelihood of zero. A Uniform(0,1) distribution would mean that each value in between zero and one is equally likely, and is a common uniformative prior for the true prevalence. Find out more on [Wikipedia](http://en.wikipedia.org/wiki/Uniform_distribution_%28continuous%29).",
+  'Beta-PERT' = "A PERT distribution is a synthetic distribution, representing the uncertainty in a parameter defined by a minimum, a maximum, and a most likely value. Function [`betaPERT`](?main=docs&sub=betaPERT) can be used to generate the parameters of a PERT distribution from expert opinion on the minimum, maximum, and most likely value.",
+  Beta = "A Beta distribution is characterized by two parameters, denoted alpha and beta (or `shape1` and `shape2` in **R**). As it is bounded by (0,1), it is a common distribution for modelling the uncertainty in proportions, such as prevalence, sensitivity and specificity. Find out more on [Wikipedia](http://en.wikipedia.org/wiki/Beta_distribution).",
+  'Beta-Expert' = "The beta-expert distribution in the **prevalence** package provides an alternative way of specifying a Beta distribution. Function [`betaPERT`](?main=docs&sub=betaPERT) fits a Beta distribution to expert opinion on a best guess estimate (which can be the mean or the mode), and additional information on a lower bound, an upper bound, or both.",
+  quote = FALSE)
 ```
 
 
@@ -34,15 +34,15 @@ Distribution parameters can be specified in a _named_ `list()` as follows:
 <table>
 <tbody>
  <tr valign="top">
-  <td>`fixed`</td>
+  <td>Fixed</td>
   <td>`list(dist = "fixed", par)`<br><br></td>
  </tr>
  <tr valign="top">
-  <td>`uniform`</td>
+  <td>Uniform</td>
   <td>`list(dist = "uniform", min, max)`<br><br></td>
  </tr>
  <tr valign="top">
-  <td>`pert`</td>
+  <td>Beta-PERT</td>
   <td>`list(dist = "pert", method, a, m, b, k)`
 
 * `method` must be `"classic"` or `"vose"`
@@ -56,11 +56,11 @@ See `r doc_fun("betaPERT")` for more information on Beta-PERT parametrization.<b
 </td>
  </tr>
  <tr valign="top">
-  <td>`beta`</td>
+  <td>Beta</td>
   <td>`list(dist = "beta", alpha, beta)`<br><br></td>
  </tr>
  <tr valign="top">
-  <td>`beta-expert`</td>
+  <td>Beta-Expert</td>
   <td>`list(dist = "beta-expert", mode, mean, lower, upper, p)`
   
 * `mode` denotes the most likely estimate  
@@ -78,14 +78,14 @@ See `r doc_fun("betaExpert")` for more information on Beta-Expert parametrizatio
 
 ### Specfication 2: BUGS style
 
-For Uniform, Beta and PERT distributions, BUGS-style short-hand notation is also allowed:
+For Uniform, Beta-PERT and Beta distributions, BUGS-style short-hand notation is also allowed:
 
 ```{r, echo=FALSE, results='asis'}
 arg_table(
-  uniform = "`~dunif(min, max)`",
-  pert = "`~dpert(min, mode, max)`",
-  beta = "`~dbeta(alpha, beta)`"
-  )
+  Uniform = "`~dunif(min, max)`",
+  'Beta-PERT' = "`~dpert(min, mode, max)`",
+  Beta = "`~dbeta(alpha, beta)`",
+  quote = FALSE)
 ```
 
 
