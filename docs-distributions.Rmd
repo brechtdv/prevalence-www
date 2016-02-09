@@ -8,7 +8,7 @@ source("preamble.R")
 
 ## Specifying distributions
 
-The **prevalence** package allows different ways of specifying the priors and external information used in the true prevalence estimation models. To see how these distributions need to be passed on to the different `truePrev` functions, see the documentation for `r doc_fun("truePrev")`, `r doc_fun("truePrevPools")`, `r doc_fun("truePrevMulti")` and `r doc_fun("truePrevMulti2")`.
+<br>The **prevalence** package allows different ways of specifying the priors and external information used in the true prevalence estimation models. To see how these distributions need to be passed on to the different `truePrev` functions, see the documentation for `r doc_fun("truePrev")`, `r doc_fun("truePrevPools")`, `r doc_fun("truePrevMulti")` and `r doc_fun("truePrevMulti2")`.
 
 ### Available distributions
 
