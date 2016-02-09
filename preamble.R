@@ -32,13 +32,28 @@ doc_help <-
 
 ## arg table
 arg_table <-
-  function(...) {
+  function(..., quote = TRUE) {
     args <- list(...)
     
     cat("<table>\n")
     cat("<tbody>\n")
-    cat(sprintf(" <tr>\n  <td>`%1$s`</td>\n  <td>%2$s</td>\n </tr>\n",
-                names(args), args),
-        sep = "")
+    if (quote) {
+      cat(
+sprintf(" <tr vAlign='top'>
+  <td>`%1$s`</td>
+  <td>%2$s</td>
+ </tr>\n",
+        names(args), args),
+sep = "")
+
+    } else {
+      cat(
+sprintf(" <tr vAlign='top'>
+  <td>%1$s</td>
+  <td>%2$s</td>
+ </tr>\n",
+        names(args), args),
+sep = "")
+    }
     cat("</table>")
   }
